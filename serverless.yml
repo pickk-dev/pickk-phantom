@@ -1,3 +1,5 @@
+org: greatsumini
+app: option-crawl-app
 service: option-crawl
 
 frameworkVersion: '>=1.1.0 <2.0.0'
@@ -17,5 +19,10 @@ functions:
       - http:
           path: crawl
           method: get
+          request:
+            parameters:
+              querystrings:
+                url: true
+
 plugins:
   - serverless-offline
