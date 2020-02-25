@@ -17,3 +17,5 @@ functions:
       - http:
           path: crawl
           method: get
+plugins:
+  - serverless-offline
