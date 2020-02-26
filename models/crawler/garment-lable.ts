@@ -1,13 +1,21 @@
 import { getCafe24StockData } from '.';
+declare const EC_SHOP_FRONT_NEW_OPTION_DATA;
 
 export default class GarmentLableCrawler {
   url: string;
+
+  evaluate = () => {
+    return EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[
+      Number(window.location.href.split('/')[5])
+    ];
+  };
+
   constructor(url: string) {
     this.url = url;
   }
 
   request = async () => {
-    const stockData = await getCafe24StockData(this.url);
+    const stockData = await getCafe24StockData(this.url, this.evaluate);
     const option = {
       name: '옵션',
       items: [{ name: '사이즈', items: [] }]
