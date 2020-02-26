@@ -2,7 +2,7 @@ import { getCafe24StockData } from '.';
 
 declare const EC_SHOP_FRONT_NEW_OPTION_DATA;
 
-export default class FatalismCrawler {
+export default class PieceWorkerCrawler {
   url: string;
 
   evaluate = () => {
@@ -21,6 +21,7 @@ export default class FatalismCrawler {
       name: '옵션',
       items: [{ name: '사이즈', items: [] }]
     };
+    console.log(stockData);
     Object.values(stockData).forEach(
       (value: { option_value_orginal: string[]; stock_number: number }) => {
         const [size] = value.option_value_orginal;

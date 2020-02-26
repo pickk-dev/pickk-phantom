@@ -21,10 +21,7 @@ export default class GarmentLableCrawler {
       items: [{ name: '사이즈', items: [] }]
     };
     Object.values(stockData).forEach(
-      (
-        value: { option_value_orginal: string[]; stock_number: number },
-        index
-      ) => {
+      (value: { option_value_orginal: string[]; stock_number: number }) => {
         const [size] = value.option_value_orginal;
         if (value.stock_number === 0) {
           return;

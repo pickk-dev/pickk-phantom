@@ -3,6 +3,7 @@ import * as phantom from 'phantom';
 import { ICrawler } from '../../types/ICrawler';
 import TheKnitCompanyCrawler from './the-knit-company';
 import FatalismCrawler from './fatalism';
+import PieceWorkerCrawler from './piece-worker';
 import GarmentLableCrawler from './garment-lable';
 import EightySixRoadCrawler from './eightysix-road';
 
@@ -17,6 +18,11 @@ export const getCrawler = (url: string): ICrawler => {
     return new EightySixRoadCrawler(url);
   if (origin === 'http://fatalism.co.kr' || origin === 'https://fatalism.co.kr')
     return new FatalismCrawler(url);
+  if (
+    origin === 'http://piece-worker.com' ||
+    origin === 'https://piece-worker.com'
+  )
+    return new PieceWorkerCrawler(url);
 };
 
 export const getCafe24StockData = async (url, evaluate) => {
