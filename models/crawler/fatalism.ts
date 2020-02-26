@@ -1,20 +1,13 @@
 import { getCafe24StockData } from '.';
+
 declare const EC_SHOP_FRONT_NEW_OPTION_DATA;
 
-export default class EightySixRoadCrawler {
+export default class FatalismCrawler {
   url: string;
 
   evaluate = () => {
-    const params: { [name: string]: string } = {};
-    window.location.search.replace(
-      /[?&]+([^=&]+)=([^&]*)/gi,
-      (_, key, value) => {
-        params[key] = value;
-        return '';
-      }
-    );
     return EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[
-      Number(params.product_no)
+      Number(window.location.href.split('/')[5])
     ];
   };
 
@@ -29,13 +22,12 @@ export default class EightySixRoadCrawler {
       items: [{ name: '사이즈', items: [] }]
     };
     Object.values(stockData).forEach(
-      (value: {
-        option_value_orginal: string[];
-        stock_number: number;
-        is_auto_soldout: 'T' | 'F';
-      }) => {
-        const [_color, size] = value.option_value_orginal;
-        if (value.is_auto_soldout === 'T' && value.stock_number === 0) {
+      (
+        value: { option_value_orginal: string[]; stock_number: number },
+        index
+      ) => {
+        const [size] = value.option_value_orginal;
+        if (value.stock_number === 0) {
           return;
         }
         option.items[0].items.push({

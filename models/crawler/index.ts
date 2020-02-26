@@ -2,10 +2,9 @@ import * as phantom from 'phantom';
 
 import { ICrawler } from '../../types/ICrawler';
 import TheKnitCompanyCrawler from './the-knit-company';
+import FatalismCrawler from './fatalism';
 import GarmentLableCrawler from './garment-lable';
 import EightySixRoadCrawler from './eightysix-road';
-
-declare const EC_SHOP_FRONT_NEW_OPTION_DATA;
 
 export const getCrawler = (url: string): ICrawler => {
   const { origin } = new URL(url);
@@ -16,6 +15,8 @@ export const getCrawler = (url: string): ICrawler => {
     return new GarmentLableCrawler(url);
   if (origin === 'http://86road.co.kr' || origin === 'https://86road.co.kr')
     return new EightySixRoadCrawler(url);
+  if (origin === 'http://fatalism.co.kr' || origin === 'https://fatalism.co.kr')
+    return new FatalismCrawler(url);
 };
 
 export const getCafe24StockData = async (url, evaluate) => {
