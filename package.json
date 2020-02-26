@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@types/aws-sdk": "^2.7.0",
+    "@types/cheerio": "^0.22.16",
     "@types/node": "^13.7.4",
     "@types/phantom": "^3.2.5",
     "serverless-offline": "^5.12.1",
