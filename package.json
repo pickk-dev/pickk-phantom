@@ -2,19 +2,30 @@
   "name": "option-crawl-service",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "local": "tsc *.ts && sls offline start",
+    "deploy": "export $(cat .env | xargs) && sls deploy",
+    "watch": "tsc -w",
+    "build": "tsc *.ts",
+    "lint": "tslint '*.ts'"
   },
-  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
-    "cheerio": "^1.0.0-rc.3"
+    "cheerio": "^1.0.0-rc.3",
+    "phantom": "^6.3.0"
   },
   "devDependencies": {
-    "serverless-offline": "^5.12.1"
+    "@types/aws-sdk": "^2.7.0",
+    "@types/node": "^13.7.4",
+    "@types/phantom": "^3.2.5",
+    "serverless-offline": "^5.12.1",
+    "tslint": "^6.0.0",
+    "tslint-config-standard": "^9.0.0",
+    "typescript": "^3.8.2"
   }
 }

@@ -24,7 +24,7 @@ AWS_SECRET_ACCESS_KEY=<your-secret-access-key>
 $ sudo npm i -g serverless
 $ npm i
 # test locally
-$ sls offline start
+$ npm run local
 # deploy
-$ sls deploy
+$ npm run deploy
 ```
