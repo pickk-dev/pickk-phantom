@@ -12,7 +12,7 @@ provider:
 
 functions:
   crawlRequest:
-    handler: api/crawl.request
+    handler: handler.request
     memorySize: 128
     description: Get URL and return crawled data.
     events:

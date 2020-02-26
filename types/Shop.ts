@@ -1,0 +1,3 @@
+enum Shop {
+  TheKnitCompany = 'TheKnitCompany'
+}
