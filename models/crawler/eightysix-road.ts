@@ -1,7 +1,13 @@
-import { getCafe24StockData } from '.';
+import axios from 'axios';
+import * as cheerio from 'cheerio';
+
+import { getCafe24Data } from '.';
+import { ICrawler, evaluateData } from '../../types/ICrawler';
+import { formatData } from '../../lib/Cafe24Parser';
+
 declare const EC_SHOP_FRONT_NEW_OPTION_DATA;
 
-export default class EightySixRoadCrawler {
+export default class EightySixRoadCrawler implements ICrawler {
   url: string;
 
   evaluate = () => {
@@ -13,9 +19,21 @@ export default class EightySixRoadCrawler {
         return '';
       }
     );
-    return EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[
-      Number(params.product_no)
-    ];
+    return {
+      type: 'stock' as evaluateData,
+      data:
+        EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[Number(params.product_no)]
+    };
+  };
+
+  getOptionNames = async () => {
+    const optionNames = [];
+    const { data: body } = await axios(this.url);
+    const hi = cheerio.load(body);
+    hi('#mun_option > .mun-option > .mun-detail-title').each((_, ele) => {
+      optionNames.push(...ele.children[0].data.split('-'));
+    });
+    return Promise.resolve(optionNames);
   };
 
   constructor(url: string) {
@@ -23,27 +41,9 @@ export default class EightySixRoadCrawler {
   }
 
   request = async () => {
-    const stockData = await getCafe24StockData(this.url, this.evaluate);
-    const option = {
-      name: '옵션',
-      items: [{ name: '사이즈', items: [] }]
-    };
-    Object.values(stockData).forEach(
-      (value: {
-        option_value_orginal: string[];
-        stock_number: number;
-        is_auto_soldout: 'T' | 'F';
-      }) => {
-        const [_color, size] = value.option_value_orginal;
-        if (value.is_auto_soldout === 'T' && value.stock_number === 0) {
-          return;
-        }
-        option.items[0].items.push({
-          value: size,
-          index: option.items[0].items.length
-        });
-      }
-    );
+    const optionNames = await this.getOptionNames();
+    const { type, data } = await getCafe24Data(this.url, this.evaluate);
+    const option = formatData(type, data, optionNames);
     return Promise.resolve(option);
   };
 }
