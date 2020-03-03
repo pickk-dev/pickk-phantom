@@ -5,7 +5,7 @@
   "main": "handler.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "local": "tsc *.ts && sls offline start",
+    "local": "tsc *.ts --downlevelIteration && sls offline start",
     "deploy": "export $(cat .env | xargs) && sls deploy",
     "watch": "tsc -w",
     "build": "tsc *.ts",
