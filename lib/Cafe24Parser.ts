@@ -1,4 +1,5 @@
 import { evaluateData, stockData, optionDefaultData } from '../types/ICrawler';
+import * as cheerio from 'cheerio';
 
 export const formatData = (type: evaluateData, data, optionNames: string[]) => {
   return type === 'stock'
@@ -11,21 +12,18 @@ const formatOptionDefaultData = (
   optionNames: string[]
 ) => {
   const option = {
-    name: '옵션',
-    items: []
+    values: {},
+    isSoldOut: []
   };
 
   Object.values(data).forEach((value, index) => {
-    option.items.push({ name: optionNames[index], items: [] });
+    option.values[optionNames[index]] = [];
     const $ = cheerio.load(value);
     $('body')
       .children()
       .each((i, ele) => {
         if (i >= 2) {
-          option.items[index].items.push({
-            value: ele.children[0].data,
-            index: option.items[index].items.length
-          });
+          option.values[optionNames[index]].push(ele.children[0].data);
         }
       });
   });
