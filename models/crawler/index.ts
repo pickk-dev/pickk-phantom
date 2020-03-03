@@ -1,10 +1,11 @@
 import * as phantom from 'phantom';
 
-import { ICrawler } from '../../types/ICrawler';
+import { ICrawler, evaluateResponse } from '../../types/ICrawler';
 import TheKnitCompanyCrawler from './the-knit-company';
 import FatalismCrawler from './fatalism';
 import PieceWorkerCrawler from './piece-worker';
 import GarmentLableCrawler from './garment-lable';
+import BananafitCrawler from './bananafit';
 import EightySixRoadCrawler from './eightysix-road';
 
 export const getCrawler = (url: string): ICrawler => {
@@ -23,12 +24,20 @@ export const getCrawler = (url: string): ICrawler => {
     origin === 'https://piece-worker.com'
   )
     return new PieceWorkerCrawler(url);
+  if (
+    origin === 'http://bananafit.co.kr' ||
+    origin === 'https://bananafit.co.kr'
+  )
+    return new BananafitCrawler(url);
 };
 
-export const getCafe24StockData = async (url, evaluate) => {
+export const getCafe24Data = async (
+  url,
+  evaluate
+): Promise<evaluateResponse> => {
   const instance = await phantom.create();
   const page = await instance.createPage();
   const status = await page.open(url);
   const data = await page.evaluate(evaluate);
-  return Promise.resolve(data);
+  return Promise.resolve(data as evaluateResponse);
 };
