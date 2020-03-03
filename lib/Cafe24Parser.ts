@@ -44,7 +44,10 @@ const formatStockData = (data: stockData, optionNames: string[]) => {
         ...new Set(option.values[optionName]).add(values[index])
       ];
     });
-    if (item.is_auto_soldout === 'T' && item.stock_number === 0) {
+    if (
+      item.is_selling === 'F' ||
+      (item.is_auto_soldout === 'T' && item.stock_number === 0)
+    ) {
       option.isSoldOut.push(
         values.map((value, index) =>
           option.values[optionNames[index]].findIndex(sumin => sumin === value)
