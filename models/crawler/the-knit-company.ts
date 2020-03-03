@@ -1,14 +1,35 @@
-import { getCafe24StockData } from '.';
+import axios from 'axios';
+import * as cheerio from 'cheerio';
+
+import { getCafe24Data } from '.';
+import { ICrawler, evaluateData, evaluateResponse } from '../../types/ICrawler';
+import { formatData } from '../../lib/Cafe24Parser';
 
 declare const EC_SHOP_FRONT_NEW_OPTION_DATA;
 
-export default class TheKnitCompanyCrawler {
+export default class TheKnitCompanyCrawler implements ICrawler {
   url: string;
 
-  evaluate = () => {
-    return EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[
-      Number(window.location.href.split('/')[5])
-    ];
+  evaluate = (): evaluateResponse => {
+    return {
+      type: 'stock' as evaluateData,
+      data:
+        EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[
+          Number(window.location.href.split('/')[5])
+        ]
+    };
+  };
+
+  getOptionNames = async () => {
+    const optionNames = [];
+    const { data: body } = await axios(this.url);
+    const hi = cheerio.load(body);
+    hi('.detail_right_wrap > div > div > div > table > tbody > tr > th').each(
+      (_, ele) => {
+        optionNames.push(...ele.children[0].data.split('-'));
+      }
+    );
+    return Promise.resolve(optionNames);
   };
 
   constructor(url: string) {
@@ -16,17 +37,9 @@ export default class TheKnitCompanyCrawler {
   }
 
   request = async () => {
-    const option = await getCafe24StockData(this.url, this.evaluate);
-    const items = {};
-    Object.values(option).forEach(
-      (value: { option_value_orginal: string[]; stock_number: number }) => {
-        const [color, size] = value.option_value_orginal;
-        if (value.stock_number === 0) {
-          return;
-        }
-        items[color] = Array.apply(null, items[color]).concat(size);
-      }
-    );
-    return Promise.resolve(items);
+    const optionNames = await this.getOptionNames();
+    const { type, data } = await getCafe24Data(this.url, this.evaluate);
+    const option = formatData(type, data, optionNames);
+    return Promise.resolve(option);
   };
 }
