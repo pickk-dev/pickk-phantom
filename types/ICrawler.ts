@@ -18,6 +18,7 @@ export type stockData = {
     option_value_orginal: string[];
     stock_number: number;
     is_auto_soldout: 'T' | 'F';
+    is_selling: 'T' | 'F';
   };
 };
 
