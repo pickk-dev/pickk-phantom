@@ -8,7 +8,7 @@
     "local": "tsc *.ts --downlevelIteration && sls offline start",
     "deploy": "export $(cat .env | xargs) && sls deploy",
     "watch": "tsc -w",
-    "build": "tsc *.ts",
+    "build": "tsc *.ts --downlevelIteration",
     "lint": "tslint '*.ts'"
   },
   "keywords": [],
@@ -17,7 +17,9 @@
   "dependencies": {
     "axios": "^0.19.2",
     "cheerio": "^1.0.0-rc.3",
-    "phantom": "^6.3.0"
+    "express": "^4.17.1",
+    "phantom": "^6.3.0",
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "@types/aws-sdk": "^2.7.0",
