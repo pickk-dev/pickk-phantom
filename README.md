@@ -4,13 +4,13 @@
 
 ### To do list
 
-1. [Advisory] (http://advisory.co.kr/)
-2. [Notnnot] (http://notnnot.com/)
-3. [Costumeoclock] (http://costumeoclock.com/)
-4. [Hance] (https://hance.kr/)
-5. [Anderssonbell] (http://en.anderssonbell.com/)
-6. [Maison-mined] (http://maison-mined.com/)
-7. [Modnine] (http://modnine.com/)
+1. [Advisory](http://advisory.co.kr/)
+2. [Notnnot](http://notnnot.com/)
+3. [Costumeoclock](http://costumeoclock.com/)
+4. [Hance](https://hance.kr/)
+5. [Anderssonbell](http://en.anderssonbell.com/)
+6. [Maison-mined](http://maison-mined.com/)
+7. [Modnine](http://modnine.com/)
 
 ### Done
 
