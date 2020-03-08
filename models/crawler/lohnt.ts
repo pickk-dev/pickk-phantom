@@ -2,17 +2,18 @@ import axios from "axios";
 import * as cheerio from "cheerio";
 
 import { getCafe24Data } from ".";
-import { ICrawler, evaluateData } from "../../types/ICrawler";
+import { ICrawler, evaluateData, evaluateResponse } from "../../types/ICrawler";
 import { formatData } from "../../lib/Cafe24Parser";
 import { getProductNum } from "../../lib/URLparser";
 
 declare const EC_SHOP_FRONT_NEW_OPTION_DATA;
 
-export default class EightySixRoadCrawler implements ICrawler {
+export default class LohntCrawler implements ICrawler {
   url: string;
   productNum: number;
+  itemIsSoldOut: boolean;
 
-  evaluate = (productNum: number) => {
+  evaluate = (productNum: number): evaluateResponse => {
     return {
       type: "stock" as evaluateData,
       data: EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[productNum]
@@ -23,10 +24,21 @@ export default class EightySixRoadCrawler implements ICrawler {
     const optionNames = [];
     const { data: body } = await axios(this.url);
     const hi = cheerio.load(body);
-    hi("#mun_option > .mun-option > .mun-detail-title").each((_, ele) => {
-      optionNames.push(...ele.children[0].data.split("-"));
+    hi(
+      "table > tbody.xans-element-.xans-product.xans-product-option.xans-record- > tr > th"
+    ).each((_, ele) => {
+      optionNames.push(ele.children[0].data);
     });
+    if (optionNames.length === 0) this.setItemIsSoldOut(hi);
     return Promise.resolve(optionNames);
+  };
+
+  setItemIsSoldOut = (hi: CheerioStatic) => {
+    let itemIsSoldOut = true;
+    hi("div.btnArea > .displaynone > p").each((_, ele) => {
+      if (ele.children[0].data === "SOLD OUT") itemIsSoldOut = false;
+    });
+    this.itemIsSoldOut = itemIsSoldOut;
   };
 
   constructor(url: string) {
@@ -41,7 +53,10 @@ export default class EightySixRoadCrawler implements ICrawler {
       this.evaluate,
       this.productNum
     );
-    const option = formatData(type, data, optionNames);
+    const option =
+      data === undefined
+        ? formatData(type, this.itemIsSoldOut, optionNames)
+        : formatData(type, data, optionNames);
     return Promise.resolve(option);
   };
 }

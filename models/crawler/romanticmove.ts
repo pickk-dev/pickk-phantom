@@ -8,24 +8,41 @@ import { getProductNum } from "../../lib/URLparser";
 
 declare const EC_SHOP_FRONT_NEW_OPTION_DATA;
 
-export default class TheKnitCompanyCrawler implements ICrawler {
+export default class RomanticMoveCrawler implements ICrawler {
   url: string;
   productNum: number;
 
   evaluate = (productNum: number): evaluateResponse => {
-    return {
-      type: "stock" as evaluateData,
-      data: EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[productNum]
+    const valuesPolyfill = object => {
+      return Object.keys(object).map(key => object[key]);
     };
+
+    const values = Object.values || valuesPolyfill;
+
+    if (
+      values(EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[productNum])[0][
+        "use_stock"
+      ] === true
+    ) {
+      return {
+        type: "stock" as evaluateData,
+        data: EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[productNum]
+      };
+    } else {
+      return {
+        type: "optionDefault" as evaluateData,
+        data: EC_SHOP_FRONT_NEW_OPTION_DATA.aOptionDefaultData
+      };
+    }
   };
 
   getOptionNames = async () => {
     const optionNames = [];
     const { data: body } = await axios(this.url);
     const hi = cheerio.load(body);
-    hi(".detail_right_wrap > div > div > div > table > tbody > tr > th").each(
+    hi("div.infoArea.soldout_displaynone > table > tbody > tr > th").each(
       (_, ele) => {
-        optionNames.push(...ele.children[0].data.split("-"));
+        optionNames.push(ele.children[0].data);
       }
     );
     return Promise.resolve(optionNames);
