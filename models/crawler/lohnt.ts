@@ -29,11 +29,11 @@ export default class LohntCrawler implements ICrawler {
     ).each((_, ele) => {
       optionNames.push(ele.children[0].data);
     });
-    if (optionNames.length === 0) this.getItemIsSoldOut(hi);
+    if (optionNames.length === 0) this.setItemIsSoldOut(hi);
     return Promise.resolve(optionNames);
   };
 
-  getItemIsSoldOut = (hi: CheerioStatic) => {
+  setItemIsSoldOut = (hi: CheerioStatic) => {
     let itemIsSoldOut = true;
     hi("div.btnArea > .displaynone > p").each((_, ele) => {
       if (ele.children[0].data === "SOLD OUT") itemIsSoldOut = false;

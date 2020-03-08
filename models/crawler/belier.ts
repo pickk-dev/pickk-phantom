@@ -27,11 +27,11 @@ export default class BelierCrawler implements ICrawler {
     hi("#product_option_id1 > optgroup").each((_, ele) => {
       optionNames.push(ele.attribs.label);
     });
-    if (optionNames.length === 0) this.getItemIsSoldOut(hi);
+    if (optionNames.length === 0) this.setItemIsSoldOut(hi);
     return Promise.resolve(optionNames);
   };
 
-  getItemIsSoldOut = (hi: CheerioStatic) => {
+  setItemIsSoldOut = (hi: CheerioStatic) => {
     hi(
       "div.xans-element-.xans-product.xans-product-action.detail_button > .displaynone > span"
     ).each((_, ele) => {
