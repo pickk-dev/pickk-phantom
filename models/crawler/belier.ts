@@ -2,7 +2,7 @@ import axios from "axios";
 import * as cheerio from "cheerio";
 
 import { getCafe24Data } from ".";
-import { ICrawler, evaluateData } from "../../types/ICrawler";
+import { ICrawler, evaluateData, evaluateResponse } from "../../types/ICrawler";
 import { formatData } from "../../lib/Cafe24Parser";
 import { getProductNum } from "../../lib/URLparser";
 
@@ -13,7 +13,7 @@ export default class BelierCrawler implements ICrawler {
   productNum: number;
   itemIsSoldOut: boolean;
 
-  evaluate = (productNum: number) => {
+  evaluate = (productNum: number): evaluateResponse => {
     return {
       type: "stock" as evaluateData,
       data: EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[productNum]
