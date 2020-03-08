@@ -4,7 +4,7 @@ import * as cheerio from "cheerio";
 import { getCafe24Data } from ".";
 import { ICrawler, evaluateData, evaluateResponse } from "../../types/ICrawler";
 import { formatData } from "../../lib/Cafe24Parser";
-import { getProductNo } from "../../lib/URLparser";
+import { getProductNum } from "../../lib/URLparser";
 
 declare const EC_SHOP_FRONT_NEW_OPTION_DATA;
 
@@ -50,7 +50,7 @@ export default class RomanticMoveCrawler implements ICrawler {
 
   constructor(url: string) {
     this.url = url;
-    this.productNum = getProductNo(url);
+    this.productNum = getProductNum(url);
   }
 
   request = async () => {
