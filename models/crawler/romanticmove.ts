@@ -33,12 +33,12 @@ export default class RomanticMoveCrawler implements ICrawler {
       const stockData =
         EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[productNum];
       const keys = Object.keys(stockData);
-      let additionalPrice = {};
+      let optionPrice = {};
       keys.forEach(key => {
         const stock_price = Number(stockData[key].stock_price);
-        if (stock_price !== 0) additionalPrice[key] = stock_price;
+        if (stock_price !== 0) optionPrice[key] = stock_price;
       });
-      data["additionalPrice"] = JSON.stringify(additionalPrice);
+      data["optionPrice"] = JSON.stringify(optionPrice);
       return {
         type: "optionDefault" as evaluateData,
         data

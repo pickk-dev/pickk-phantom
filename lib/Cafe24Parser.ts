@@ -14,12 +14,12 @@ const formatOptionDefaultData = (
   const option = {
     values: {},
     isSoldOut: [],
-    additionalPrice: []
+    optionPrice: []
   };
 
-  const additionalPrice = JSON.parse(data.additionalPrice);
-  const additionalPriceKeys = Object.keys(additionalPrice);
-  delete data.additionalPrice;
+  const optionPrice = JSON.parse(data.optionPrice);
+  const optionPriceKeys = Object.keys(optionPrice);
+  delete data.optionPrice;
 
   Object.values(data).forEach((value, index) => {
     option.values[optionNames[index]] = [];
@@ -29,10 +29,10 @@ const formatOptionDefaultData = (
       .each((i, ele) => {
         if (i >= 2) {
           option.values[optionNames[index]].push(ele.children[0].data);
-          if (additionalPriceKeys.includes(ele.attribs.value)) {
-            option.additionalPrice.push({
+          if (optionPriceKeys.includes(ele.attribs.value)) {
+            option.optionPrice.push({
               option: [index, i - 2],
-              price: additionalPrice[ele.attribs.value]
+              price: optionPrice[ele.attribs.value]
             });
           }
         }
@@ -46,7 +46,7 @@ const formatStockData = (data: stockData | boolean, optionNames: string[]) => {
   const option = {
     values: {},
     isSoldOut: [],
-    additionalPrice: []
+    optionPrice: []
   };
 
   if (optionNames.length !== 0)
