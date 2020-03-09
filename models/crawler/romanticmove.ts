@@ -29,9 +29,19 @@ export default class RomanticMoveCrawler implements ICrawler {
         data: EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[productNum]
       };
     } else {
+      let data = EC_SHOP_FRONT_NEW_OPTION_DATA.aOptionDefaultData;
+      const stockData =
+        EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[productNum];
+      const keys = Object.keys(stockData);
+      let additionalPrice = {};
+      keys.forEach(key => {
+        const stock_price = Number(stockData[key].stock_price);
+        if (stock_price !== 0) additionalPrice[key] = stock_price;
+      });
+      data["additionalPrice"] = JSON.stringify(additionalPrice);
       return {
         type: "optionDefault" as evaluateData,
-        data: EC_SHOP_FRONT_NEW_OPTION_DATA.aOptionDefaultData
+        data
       };
     }
   };
