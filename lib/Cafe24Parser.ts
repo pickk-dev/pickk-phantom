@@ -78,7 +78,7 @@ const formatOptionDefaultData = (
 };
 
 const formatStockData = (data: stockData | boolean, optionNames: string[]) => {
-  const option = {
+  const option: itemOptionData = {
     values: {},
     isSoldOut: [],
     optionPriceVariants: [],
