@@ -47,8 +47,7 @@ const formatOptionDefaultData = (
 
   const optionValuesArr = Object.values(option.values);
   const divisorArr = optionValuesArr.map(e => e.length).reverse();
-  let mul = 1;
-  divisorArr.forEach(e => (mul *= e));
+  const mul = divisorArr.reduce((acc, curr) => acc * curr, 1);
   const optionVariants = Array.apply(null, Array(mul)).map((_, index) => {
     let bf = index;
     let optionVariant = [];
