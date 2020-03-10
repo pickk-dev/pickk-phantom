@@ -26,3 +26,15 @@ export type stockData = {
 export type optionDefaultData = {
   [name: string]: string;
 };
+
+export type itemOptionData = {
+  values: { [name: string]: string[] };
+  isSoldOut: Array<number[]>;
+  optionPriceVariants: priceVariant[];
+  productPriceVariants: priceVariant[];
+};
+
+export type priceVariant = {
+  option: number[];
+  price: number;
+};
