@@ -1,4 +1,9 @@
-import { evaluateData, stockData, optionDefaultData } from "../types/ICrawler";
+import {
+  evaluateData,
+  stockData,
+  optionDefaultData,
+  itemOptionData
+} from "../types/ICrawler";
 import * as cheerio from "cheerio";
 
 export const formatData = (type: evaluateData, data, optionNames: string[]) => {
@@ -11,10 +16,16 @@ const formatOptionDefaultData = (
   data: optionDefaultData,
   optionNames: string[]
 ) => {
-  const option = {
+  const option: itemOptionData = {
     values: {},
-    isSoldOut: []
+    isSoldOut: [],
+    optionPriceVariants: [],
+    productPriceVariants: []
   };
+
+  const optionPriceVariants = JSON.parse(data.optionPriceVariants);
+  const optionPriceVariantsKeys = Object.keys(optionPriceVariants);
+  delete data.optionPriceVariants;
 
   Object.values(data).forEach((value, index) => {
     option.values[optionNames[index]] = [];
@@ -24,7 +35,41 @@ const formatOptionDefaultData = (
       .each((i, ele) => {
         if (i >= 2) {
           option.values[optionNames[index]].push(ele.children[0].data);
+          if (optionPriceVariantsKeys.includes(ele.attribs.value)) {
+            option.optionPriceVariants.push({
+              option: [index, i - 2],
+              price: optionPriceVariants[ele.attribs.value]
+            });
+          }
         }
+      });
+  });
+
+  const optionValuesArr = Object.values(option.values);
+  const divisorArr = optionValuesArr.map(e => e.length).reverse();
+  const mul = divisorArr.reduce((acc, curr) => acc * curr, 1);
+  const optionVariants = Array.apply(null, Array(mul)).map((_, index) => {
+    let bf = index;
+    let optionVariant = [];
+    divisorArr.forEach(divisor => {
+      optionVariant.unshift(Math.floor(bf % divisor));
+      bf = Math.floor(bf / divisor);
+    });
+    return optionVariant;
+  });
+
+  optionVariants.forEach(optionVariant => {
+    const totalPrice = option.optionPriceVariants.reduce(
+      (acc, optionPriceVariant) => {
+        const { option, price } = optionPriceVariant;
+        return optionVariant[option[0]] === option[1] ? acc + price : acc;
+      },
+      0
+    );
+    if (totalPrice > 0)
+      option.productPriceVariants.push({
+        option: optionVariant,
+        price: totalPrice
       });
   });
 
@@ -32,9 +77,11 @@ const formatOptionDefaultData = (
 };
 
 const formatStockData = (data: stockData | boolean, optionNames: string[]) => {
-  const option = {
+  const option: itemOptionData = {
     values: {},
-    isSoldOut: []
+    isSoldOut: [],
+    optionPriceVariants: [],
+    productPriceVariants: []
   };
 
   if (optionNames.length !== 0)
