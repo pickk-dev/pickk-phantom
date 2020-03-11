@@ -10,6 +10,9 @@ import EightySixRoadCrawler from "./eightysix-road";
 import LohntCrawler from "./lohnt";
 import BelierCrawler from "./belier";
 import RomanticMoveCrawler from "./romanticmove";
+import NotnnotCrawler from "./notnnot";
+import CostumeoclockCrawler from "./costumeoclock";
+import SuareCrawler from "./suare";
 
 export const getCrawler = (url: string): ICrawler => {
   const { origin } = new URL(url);
@@ -45,6 +48,18 @@ export const getCrawler = (url: string): ICrawler => {
     origin === "https://romanticmove.com"
   )
     return new RomanticMoveCrawler(url);
+  if (origin === "http://notnnot.com" || origin === "https://notnnot.com") {
+    return new NotnnotCrawler(url);
+  }
+  if (
+    origin === "http://costumeoclock.com" ||
+    origin === "https://costumeoclock.com"
+  ) {
+    return new CostumeoclockCrawler(url);
+  }
+  if (origin === "http://suare.co.kr" || origin === "https://suare.co.kr") {
+    return new SuareCrawler(url);
+  }
 };
 
 export const getCafe24Data = async (
