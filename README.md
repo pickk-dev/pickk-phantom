@@ -5,12 +5,10 @@
 ### To do list
 
 1. [Advisory](http://advisory.co.kr/)
-2. [Notnnot](http://notnnot.com/)
-3. [Costumeoclock](http://costumeoclock.com/)
-4. [Hance](https://hance.kr/)
-5. [Anderssonbell](http://en.anderssonbell.com/)
-6. [Maison-mined](http://maison-mined.com/)
-7. [Modnine](http://modnine.com/)
+2. [Hance](https://hance.kr/)
+3. [Anderssonbell](http://en.anderssonbell.com/)
+4. [Maison-mined](http://maison-mined.com/)
+5. [Modnine](http://modnine.com/)
 
 ### Done
 
@@ -23,10 +21,12 @@
 7. [Belier](https://www.belier.co.kr/)
 8. [Lohnt](https://lohnt.co.kr/)
 9. [RomanticMove](https://romanticmove.com/)
+10. [Notnnot](http://notnnot.com/)
+11. [Suare](http://suare.co.kr/)
+12. [Costumeoclock](http://costumeoclock.com/)
 
 
 ### Getting Started
-
 
 #### .env file
 
