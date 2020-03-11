@@ -98,9 +98,7 @@ const formatStockData = (data: stockData | boolean, optionNames: string[]) => {
       ) {
         option.isSoldOut.push(
           values.map((value, index) =>
-            option.values[optionNames[index]].findIndex(
-              sumin => sumin === value
-            )
+            option.values[optionNames[index]].indexOf(value)
           )
         );
       }
