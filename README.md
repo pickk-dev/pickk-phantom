@@ -21,13 +21,12 @@
 7. [Belier](https://www.belier.co.kr/)
 8. [Lohnt](https://lohnt.co.kr/)
 9. [RomanticMove](https://romanticmove.com/)
+10. [Notnnot](http://notnnot.com/)
+11. [Suare](http://suare.co.kr/)
+12. [Costumeoclock](http://costumeoclock.com/)
 
 
 ### Getting Started
-
-1. [Notnnot](http://notnnot.com/)
-2. [Suare](http://suare.co.kr/)
-3. [Costumeoclock](http://costumeoclock.com/)
 
 #### .env file
 
