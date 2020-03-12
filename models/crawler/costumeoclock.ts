@@ -24,7 +24,7 @@ export default class CostumeoclockCrawler implements ICrawler {
     const { data: body } = await axios(this.url);
     const hi = cheerio.load(body);
     hi(
-      "#contents > div.container2 > div.item2 > div > div.infoArea > table > tbody.xans-element-.xans-product.xans-product-option.xans-record- > tr > th"
+      "tbody.xans-element-.xans-product.xans-product-option.xans-record- > tr > th"
     ).each((_, ele) => {
       optionNames.push(ele.children[0].data);
     });
