@@ -13,6 +13,7 @@ import RomanticMoveCrawler from "./romanticmove";
 import NotnnotCrawler from "./notnnot";
 import CostumeoclockCrawler from "./costumeoclock";
 import SuareCrawler from "./suare";
+import HanceCrawler from "./hance";
 
 export const getCrawler = (url: string): ICrawler => {
   const { origin } = new URL(url);
@@ -59,6 +60,9 @@ export const getCrawler = (url: string): ICrawler => {
   }
   if (origin === "http://suare.co.kr" || origin === "https://suare.co.kr") {
     return new SuareCrawler(url);
+  }
+  if (origin === "https://hance.kr") {
+    return new HanceCrawler(url);
   }
 };
 
