@@ -84,9 +84,9 @@ const formatStockData = (data: stockData | boolean, optionNames: string[]) => {
     productPriceVariants: []
   };
 
-  if (optionNames.length !== 0)
+  if (optionNames.length !== 0) {
     Object.values(data).forEach(item => {
-      const [...values] = item.option_value_orginal;
+      const values = item.option_value_orginal;
       optionNames.forEach((optionName, index) => {
         option.values[optionName] = [
           ...new Set(option.values[optionName]).add(values[index])
@@ -103,7 +103,39 @@ const formatStockData = (data: stockData | boolean, optionNames: string[]) => {
         );
       }
     });
-  else option["itemIsSoldOut"] = data;
+
+    const optionValuesArr = Object.values(option.values);
+    const optionPriceVariants = Object.values(data).map(item => {
+      const result = {
+        option: item.option_value_orginal.map((value, i) =>
+          optionValuesArr[i].indexOf(value)
+        ),
+        price: Number(item.stock_price)
+      };
+      if (Number(item.stock_price) > 0)
+        option.productPriceVariants.push(result);
+      return result;
+    });
+
+    const optionValuesLengthArr = optionValuesArr.map(e => e.length);
+    optionValuesLengthArr.map((length, index) => {
+      const prices = Array.apply(null, Array(length)).map((_, num) => {
+        const option = optionValuesArr.map((_, i) => (index === i ? num : 0));
+        const { price } = optionPriceVariants.find(
+          e => JSON.stringify(e.option) === JSON.stringify(option)
+        );
+        return price;
+      });
+      const minPrice = Math.min(...prices);
+      prices.forEach((price, i) => {
+        if (price > minPrice)
+          option.optionPriceVariants.push({
+            option: [index, i],
+            price: price - minPrice
+          });
+      });
+    });
+  } else option["itemIsSoldOut"] = data;
 
   return option;
 };

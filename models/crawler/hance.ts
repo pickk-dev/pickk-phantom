@@ -8,7 +8,7 @@ import { getProductNum } from "../../lib/URLparser";
 
 declare const EC_SHOP_FRONT_NEW_OPTION_DATA;
 
-export default class CostumeoclockCrawler implements ICrawler {
+export default class HanceCrawler implements ICrawler {
   url: string;
   productNum: number;
 
@@ -24,9 +24,10 @@ export default class CostumeoclockCrawler implements ICrawler {
     const { data: body } = await axios(this.url);
     const hi = cheerio.load(body);
     hi(
-      "tbody.xans-element-.xans-product.xans-product-option.xans-record- > tr > th"
+      "li.xans-element-.xans-product.xans-product-option.xans-record- > label"
     ).each((_, ele) => {
-      optionNames.push(ele.children[0].data);
+      const start = ele.children[0].data.indexOf(" ") + 1;
+      optionNames.push(ele.children[0].data.slice(start));
     });
     return Promise.resolve(optionNames);
   };
