@@ -6,8 +6,7 @@
 
 1. [Advisory](http://advisory.co.kr/)
 2. [Anderssonbell](http://en.anderssonbell.com/)
-3. [Maison-mined](http://maison-mined.com/)
-4. [Modnine](http://modnine.com/)
+3. [Modnine](http://modnine.com/)
 
 ### Done
 
@@ -27,6 +26,7 @@
 
 
 ### Getting Started
+1. [Maison-mined](http://maison-mined.com/)
 
 #### .env file
 
