@@ -14,9 +14,11 @@ import NotnnotCrawler from "./notnnot";
 import CostumeoclockCrawler from "./costumeoclock";
 import SuareCrawler from "./suare";
 import HanceCrawler from "./hance";
+import MaisonMinedCrawler from "./maisonmined";
 
 export const getCrawler = (url: string): ICrawler => {
   const { origin } = new URL(url);
+  console.log(origin);
 
   if (origin === "https://theknitcompany.com")
     return new TheKnitCompanyCrawler(url);
@@ -63,6 +65,13 @@ export const getCrawler = (url: string): ICrawler => {
   }
   if (origin === "https://hance.kr") {
     return new HanceCrawler(url);
+  }
+  if (
+    origin === "http://maison-mined.com" ||
+    origin === "https://maison-mined.com"
+  ) {
+    console.log("maison");
+    return new MaisonMinedCrawler(url);
   }
 };
 
