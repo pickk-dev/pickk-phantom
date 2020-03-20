@@ -4,9 +4,8 @@
 
 ### To do list
 
-1. [Advisory](http://advisory.co.kr/)
-2. [Anderssonbell](http://en.anderssonbell.com/)
-3. [Modnine](http://modnine.com/)
+1. [Anderssonbell](http://en.anderssonbell.com/)
+2. [Modnine](http://modnine.com/)
 
 ### Done
 
@@ -26,6 +25,8 @@
 14. [Maison-mined](http://maison-mined.com/)
 
 ### Getting Started
+
+1. [Advisory](http://advisory.co.kr/)
 
 #### .env file
 
