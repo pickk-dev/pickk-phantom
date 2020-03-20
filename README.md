@@ -6,8 +6,7 @@
 
 1. [Advisory](http://advisory.co.kr/)
 2. [Anderssonbell](http://en.anderssonbell.com/)
-3. [Maison-mined](http://maison-mined.com/)
-4. [Modnine](http://modnine.com/)
+3. [Modnine](http://modnine.com/)
 
 ### Done
 
@@ -24,7 +23,7 @@
 11. [Suare](http://suare.co.kr/)
 12. [Costumeoclock](http://costumeoclock.com/)
 13. [Hance](https://hance.kr/)
-
+14. [Maison-mined](http://maison-mined.com/)
 
 ### Getting Started
 

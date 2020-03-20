@@ -66,6 +66,13 @@ export const getCrawler = (url: string): ICrawler => {
   if (origin === 'https://hance.kr') {
     return new HanceCrawler(uniCodeUrl);
   }
+  if (
+    origin === "http://maison-mined.com" ||
+    origin === "https://maison-mined.com"
+  ) {
+    console.log("maison");
+    return new MaisonMinedCrawler(url);
+  }
 };
 
 export const getCafe24Data = async (
