@@ -4,9 +4,8 @@
 
 ### To do list
 
-1. [Advisory](http://advisory.co.kr/)
-2. [Anderssonbell](http://en.anderssonbell.com/)
-3. [Modnine](http://modnine.com/)
+1. [Anderssonbell](http://en.anderssonbell.com/)
+2. [Modnine](http://modnine.com/)
 
 ### Done
 
@@ -24,6 +23,7 @@
 12. [Costumeoclock](http://costumeoclock.com/)
 13. [Hance](https://hance.kr/)
 14. [Maison-mined](http://maison-mined.com/)
+15. [Advisory](http://advisory.co.kr/)
 
 ### Getting Started
 
