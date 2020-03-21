@@ -8,13 +8,16 @@ export default class AdvisoryCrawler implements ICrawler {
   url: string;
   productNum: number;
 
-  getOptions = async () => {
-    const values = {};
+  getOption = async () => {
     const { data: body } = await axios(this.url);
     const hi = cheerio.load(body);
     const { optionValues, isSoldOut } = this.getOptionValues(hi);
-    values[this.getOptionName(hi)] = optionValues;
-    return Promise.resolve({ values, isSoldOut });
+    return Promise.resolve({
+      values: {
+        [this.getOptionName(hi)]: optionValues
+      },
+      isSoldOut
+    });
   };
 
   getOptionName = (hi: CheerioStatic) => {
@@ -42,7 +45,7 @@ export default class AdvisoryCrawler implements ICrawler {
   }
 
   request = async () => {
-    const option = await this.getOptions();
+    const option = await this.getOption();
     option["optionPriceVariants"] = [];
     option["productPriceVariants"] = [];
     return Promise.resolve(option);
