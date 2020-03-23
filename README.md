@@ -23,10 +23,9 @@
 13. [Hance](https://hance.kr/)
 14. [Maison-mined](http://maison-mined.com/)
 15. [Advisory](http://advisory.co.kr/)
+16. [Modnine](http://modnine.com/)
 
 ### Getting Started
-
-1. [Modnine](http://modnine.com/)
 
 #### .env file
 
