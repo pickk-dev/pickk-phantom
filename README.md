@@ -5,7 +5,6 @@
 ### To do list
 
 1. [Anderssonbell](http://en.anderssonbell.com/)
-2. [Modnine](http://modnine.com/)
 
 ### Done
 
@@ -26,6 +25,8 @@
 15. [Advisory](http://advisory.co.kr/)
 
 ### Getting Started
+
+1. [Modnine](http://modnine.com/)
 
 #### .env file
 
