@@ -5,7 +5,6 @@
 ### To do list
 
 1. [Anderssonbell](http://en.anderssonbell.com/)
-2. [Modnine](http://modnine.com/)
 
 ### Done
 
@@ -24,6 +23,7 @@
 13. [Hance](https://hance.kr/)
 14. [Maison-mined](http://maison-mined.com/)
 15. [Advisory](http://advisory.co.kr/)
+16. [Modnine](http://modnine.com/)
 
 ### Getting Started
 

@@ -16,6 +16,7 @@ import SuareCrawler from "./suare";
 import HanceCrawler from "./hance";
 import MaisonMinedCrawler from "./maisonmined";
 import AdvisoryCrawler from "./advisory";
+import ModnineCrawler from "./modnine";
 
 export const getCrawler = (url: string): ICrawler => {
   const uniCodeUrl = encodeURI(url);
@@ -76,6 +77,9 @@ export const getCrawler = (url: string): ICrawler => {
   }
   if (origin === "http://advisory.co.kr") {
     return new AdvisoryCrawler(url);
+  }
+  if (origin === "http://modnine.com" || origin === "https://modnine.com") {
+    return new ModnineCrawler(url);
   }
 };
 
