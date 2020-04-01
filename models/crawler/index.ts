@@ -87,6 +87,7 @@ export const getCrawler = (url: string): ICrawler => {
   if (origin === 'http://modnine.com' || origin === 'https://modnine.com') {
     return new ModnineCrawler(url);
   }
+  return null;
 };
 
 export const getCafe24Data = async (
