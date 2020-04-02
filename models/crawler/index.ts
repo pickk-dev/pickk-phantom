@@ -17,6 +17,9 @@ import HanceCrawler from "./hance";
 import MaisonMinedCrawler from "./maisonmined";
 import AdvisoryCrawler from "./advisory";
 import ModnineCrawler from "./modnine";
+import CurrentCrawler from "./current";
+import PavementCrawler from "./pavement";
+import PartsCrawler from "./parts";
 
 export const getCrawler = (url: string): ICrawler => {
   const uniCodeUrl = encodeURI(url);
@@ -80,6 +83,21 @@ export const getCrawler = (url: string): ICrawler => {
   }
   if (origin === "http://modnine.com" || origin === "https://modnine.com") {
     return new ModnineCrawler(url);
+  }
+  if (
+    origin === "http://currentstore.co.kr" ||
+    origin === "https://currentstore.co.kr"
+  ) {
+    return new CurrentCrawler(url);
+  }
+  if (
+    origin === "http://pavement.co.kr" ||
+    origin === "https://pavement.co.kr"
+  ) {
+    return new PavementCrawler(url);
+  }
+  if (origin === "http://partsstore.kr" || origin === "https://partsstore.kr") {
+    return new PartsCrawler(url);
   }
 };
 
