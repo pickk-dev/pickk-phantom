@@ -5,9 +5,6 @@
 ### To do list
 
 1. [Anderssonbell](http://en.anderssonbell.com/)
-2. [Current](http://currentstore.co.kr/)
-3. [Pavement](https://pavement.co.kr/)
-4. [Parts](https://partsstore.kr/)
 
 ### Done
 
@@ -27,6 +24,9 @@
 14. [Maison-mined](http://maison-mined.com/)
 15. [Advisory](http://advisory.co.kr/)
 16. [Modnine](http://modnine.com/)
+17. [Current](http://currentstore.co.kr/)
+18. [Pavement](https://pavement.co.kr/)
+19. [Parts](https://partsstore.kr/)
 
 ### Getting Started
 
