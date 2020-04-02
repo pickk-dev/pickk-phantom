@@ -25,7 +25,6 @@ export default class PavementCrawler implements ICrawler {
     const hi = cheerio.load(body);
     hi("div.xans-product.xans-product-option> div.mun-detail-title").each(
       (_, ele) => {
-        console.log(ele.children[0].data);
         optionNames.push(ele.children[0].data);
       }
     );
