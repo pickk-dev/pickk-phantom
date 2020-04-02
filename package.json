@@ -15,10 +15,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "apicache": "^1.5.3",
     "axios": "^0.19.2",
     "cheerio": "^1.0.0-rc.3",
     "express": "^4.17.1",
     "phantom": "^6.3.0",
+    "phantom-pool": "^1.2.2",
     "url": "^0.11.0"
   },
   "devDependencies": {

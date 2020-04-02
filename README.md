@@ -5,6 +5,9 @@
 ### To do list
 
 1. [Anderssonbell](http://en.anderssonbell.com/)
+2. [Current](http://currentstore.co.kr/)
+3. [Pavement](https://pavement.co.kr/)
+4. [Parts](https://partsstore.kr/)
 
 ### Done
 
