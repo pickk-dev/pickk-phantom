@@ -23,9 +23,8 @@ export default class CurrentCrawler implements ICrawler {
     const optionNames = [];
     const { data: body } = await axios(this.url);
     const hi = cheerio.load(body);
-    hi(
-      "#mun_option > div.xans-element-.xans-product.xans-product-option.mun-detail-list.mun-option.xans-record- > div.mun-detail-desc > ul"
-    ).each((_, ele) => {
+    hi("div.mun-detail-desc > ul").each((_, ele) => {
+      console.log(ele.attribs.option_title);
       optionNames.push(ele.attribs.option_title);
     });
     return Promise.resolve(optionNames);
