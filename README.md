@@ -4,7 +4,7 @@
 
 ### To do list
 
-1. [Anderssonbell](http://en.anderssonbell.com/)
+1. [Phos333](http://www.phos333.com/)
 
 ### Done
 
@@ -28,6 +28,7 @@
 18. [Pavement](https://pavement.co.kr/)
 19. [Parts](https://partsstore.kr/)
 20. [Flareup](http://flareup.co.kr/)
+21. [Haleine](https://www.haleineshop.com/)
 
 ### Getting Started
 
