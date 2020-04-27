@@ -21,11 +21,12 @@ import CurrentCrawler from "./current";
 import PavementCrawler from "./pavement";
 import PartsCrawler from "./parts";
 import FlareupCrawler from "./flareup";
+import HaleineCrawler from "./haleine";
 
 const pool = createPhantomPool({
   max: 20,
   // For all opts, see opts at https://github.com/coopernurse/node-pool#createpool
-  phantomArgs: [["--load-images=true"]] // arguments passed to phantomjs-node directly, default is `[]`. For all opts, see https://github.com/amir20/phantomjs-node#phantom-object-api
+  phantomArgs: [["--load-images=true"]], // arguments passed to phantomjs-node directly, default is `[]`. For all opts, see https://github.com/amir20/phantomjs-node#phantom-object-api
 });
 
 export const getCrawler = (url: string): ICrawler => {
@@ -109,6 +110,9 @@ export const getCrawler = (url: string): ICrawler => {
   if (origin === "http://flareup.co.kr" || origin === "https://flareup.co.kr") {
     return new FlareupCrawler(url);
   }
+  if (origin === "https://www.haleineshop.com") {
+    return new HaleineCrawler(url);
+  }
   return null;
 };
 
@@ -117,7 +121,7 @@ export const getCafe24Data = async (
   evaluate,
   productNum
 ): Promise<evaluateResponse> => {
-  const data = await pool.use(async instance => {
+  const data = await pool.use(async (instance) => {
     const page = await instance.createPage();
     await page.clearCookies();
     await page.open(url);
