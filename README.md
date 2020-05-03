@@ -4,8 +4,6 @@
 
 ### To do list
 
-1. [Phos333](http://www.phos333.com/)
-
 ### Done
 
 1. [The knit company](https://theknitcompany.com/)
@@ -31,6 +29,8 @@
 21. [Haleine](https://www.haleineshop.com/)
 
 ### Getting Started
+
+1. [Phos333](http://www.phos333.com/)
 
 #### .env file
 
