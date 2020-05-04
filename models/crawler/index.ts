@@ -1,6 +1,6 @@
-import createPhantomPool from 'phantom-pool';
+import { pool } from '../../lib/Phantom';
 
-import { ICrawler, evaluateResponse } from '../../types/ICrawler';
+import { ICrawler, evaluateResponse } from '../../types/Crawl';
 import TheKnitCompanyCrawler from './the-knit-company';
 import FatalismCrawler from './fatalism';
 import PieceWorkerCrawler from './piece-worker';
@@ -23,12 +23,6 @@ import PartsCrawler from './parts';
 import FlareupCrawler from './flareup';
 import HaleineCrawler from './haleine';
 import Phos333Crawler from './phos333';
-
-const pool = createPhantomPool({
-  max: 20,
-  // For all opts, see opts at https://github.com/coopernurse/node-pool#createpool
-  phantomArgs: [['--load-images=true']], // arguments passed to phantomjs-node directly, default is `[]`. For all opts, see https://github.com/amir20/phantomjs-node#phantom-object-api
-});
 
 export const getCrawler = (url: string): ICrawler => {
   const uniCodeUrl = encodeURI(url);

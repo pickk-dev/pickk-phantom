@@ -1,10 +1,10 @@
-import axios from "axios";
-import * as cheerio from "cheerio";
+import axios from 'axios';
+import * as cheerio from 'cheerio';
 
-import { getCafe24Data } from ".";
-import * as Cafe24Parser from "../../lib/Cafe24Parser";
-import { ICrawler, evaluateData } from "../../types/ICrawler";
-import { getProductNum } from "../../lib/URLparser";
+import { getCafe24Data } from '.';
+import * as Cafe24Parser from '../../lib/Cafe24Parser';
+import { ICrawler, evaluateData } from '../../types/Crawl';
+import { getProductNum } from '../../lib/URLparser';
 
 declare const EC_SHOP_FRONT_NEW_OPTION_DATA;
 
@@ -13,20 +13,20 @@ export default class BananafitCrawler implements ICrawler {
   productNum: number;
 
   evaluate = (productNum: number) => {
-    const valuesPolyfill = object => {
-      return Object.keys(object).map(key => object[key]);
+    const valuesPolyfill = (object) => {
+      return Object.keys(object).map((key) => object[key]);
     };
 
     const values = Object.values || valuesPolyfill;
 
     if (
       values(EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[productNum])[0][
-        "use_stock"
+        'use_stock'
       ] === true
     ) {
       return {
-        type: "stock" as evaluateData,
-        data: EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[productNum]
+        type: 'stock' as evaluateData,
+        data: EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[productNum],
       };
     } else {
       let data = EC_SHOP_FRONT_NEW_OPTION_DATA.aOptionDefaultData;
@@ -34,14 +34,14 @@ export default class BananafitCrawler implements ICrawler {
         EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[productNum];
       const keys = Object.keys(stockData);
       let optionPriceVariants = {};
-      keys.forEach(key => {
+      keys.forEach((key) => {
         const stock_price = Number(stockData[key].stock_price);
         if (stock_price !== 0) optionPriceVariants[key] = stock_price;
       });
-      data["optionPriceVariants"] = JSON.stringify(optionPriceVariants);
+      data['optionPriceVariants'] = JSON.stringify(optionPriceVariants);
       return {
-        type: "optionDefault" as evaluateData,
-        data
+        type: 'optionDefault' as evaluateData,
+        data,
       };
     }
   };
@@ -50,7 +50,7 @@ export default class BananafitCrawler implements ICrawler {
     const optionNames = [];
     const { data: body } = await axios(this.url);
     const hi = cheerio.load(body);
-    hi("#mun_option > div > div").each((_, ele) => {
+    hi('#mun_option > div > div').each((_, ele) => {
       // tslint:disable-next-line: triple-equals
       if (ele.children[0].data !== undefined) {
         optionNames.push(ele.children[0].data);

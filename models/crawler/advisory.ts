@@ -1,8 +1,8 @@
-import axios from "axios";
-import * as cheerio from "cheerio";
+import axios from 'axios';
+import * as cheerio from 'cheerio';
 
-import { ICrawler } from "../../types/ICrawler";
-import { getProductNum } from "../../lib/URLparser";
+import { ICrawler } from '../../interfaces/ICrawler';
+import { getProductNum } from '../../lib/URLparser';
 
 export default class AdvisoryCrawler implements ICrawler {
   url: string;
@@ -14,15 +14,15 @@ export default class AdvisoryCrawler implements ICrawler {
     const { optionValues, isSoldOut } = this.getOptionValues(hi);
     return Promise.resolve({
       values: {
-        [this.getOptionName(hi)]: optionValues
+        [this.getOptionName(hi)]: optionValues,
       },
-      isSoldOut
+      isSoldOut,
     });
   };
 
   getOptionName = (hi: CheerioStatic) => {
     let optionName;
-    hi("div.item_add_option_box > dl > dt").each((_, ele) => {
+    hi('div.item_add_option_box > dl > dt').each((_, ele) => {
       optionName = ele.children[0].data;
     });
     return optionName;
@@ -31,10 +31,10 @@ export default class AdvisoryCrawler implements ICrawler {
   getOptionValues = (hi: CheerioStatic) => {
     const optionValues = [];
     const isSoldOut = [];
-    hi("div.item_add_option_box > dl > dd > select > option").each((i, ele) => {
+    hi('div.item_add_option_box > dl > dd > select > option').each((i, ele) => {
       if (ele.attribs.disabled) isSoldOut.push([i - 1]);
       if (ele.attribs.value)
-        optionValues.push(ele.children[0].data.split("[품절]")[0].trim());
+        optionValues.push(ele.children[0].data.split('[품절]')[0].trim());
     });
     return { optionValues, isSoldOut };
   };
@@ -46,8 +46,8 @@ export default class AdvisoryCrawler implements ICrawler {
 
   request = async () => {
     const option = await this.getOption();
-    option["optionPriceVariants"] = [];
-    option["productPriceVariants"] = [];
+    option['optionPriceVariants'] = [];
+    option['productPriceVariants'] = [];
     return Promise.resolve(option);
   };
 }

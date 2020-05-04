@@ -1,10 +1,10 @@
-import axios from "axios";
-import * as cheerio from "cheerio";
+import axios from 'axios';
+import * as cheerio from 'cheerio';
 
-import { getCafe24Data } from ".";
-import { ICrawler, evaluateData, evaluateResponse } from "../../types/ICrawler";
-import { formatData } from "../../lib/Cafe24Parser";
-import { getProductNum } from "../../lib/URLparser";
+import { getCafe24Data } from '.';
+import { ICrawler, evaluateData, evaluateResponse } from '../../types/Crawl';
+import { formatData } from '../../lib/Cafe24Parser';
+import { getProductNum } from '../../lib/URLparser';
 
 declare const EC_SHOP_FRONT_NEW_OPTION_DATA;
 
@@ -14,8 +14,8 @@ export default class ModnineCrawler implements ICrawler {
 
   evaluate = (productNum: number): evaluateResponse => {
     return {
-      type: "stock" as evaluateData,
-      data: EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[productNum]
+      type: 'stock' as evaluateData,
+      data: EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[productNum],
     };
   };
 
@@ -23,7 +23,7 @@ export default class ModnineCrawler implements ICrawler {
     const optionNames = [];
     const { data: body } = await axios(this.url);
     const hi = cheerio.load(body);
-    hi("#product_option_id1 > optgroup").each((_, ele) => {
+    hi('#product_option_id1 > optgroup').each((_, ele) => {
       optionNames.push(ele.attribs.label);
     });
     return Promise.resolve(optionNames);

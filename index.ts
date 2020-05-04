@@ -4,7 +4,7 @@ const port = 3000;
 const express = require('express');
 const apicache = require('apicache');
 const { parse } = require('url');
-const { handleRequest } = require('./handler');
+const { handleRequest, handleInfoRequest } = require('./handler');
 
 const app = express();
 const cache = apicache.middleware;
@@ -22,7 +22,18 @@ app.get('/', async (req, res, next) => {
   }
 });
 
-app.listen(port, err => {
+app.get('/info', async (req, res) => {
+  const parsedUrl = parse(req.url, true);
+  const { pathname, query } = parsedUrl;
+  try {
+    const data = await handleInfoRequest(query.url);
+    res.send(data);
+  } catch (error) {
+    res.status(500).json({ error: error.toString() });
+  }
+});
+
+app.listen(port, (err) => {
   if (err) throw err;
 
   console.log(`> Ready on http://localhost:${port} : ${dev ? 'dev' : 'prod'}`);

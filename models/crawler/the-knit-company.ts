@@ -1,10 +1,10 @@
-import axios from "axios";
-import * as cheerio from "cheerio";
+import axios from 'axios';
+import * as cheerio from 'cheerio';
 
-import { getCafe24Data } from ".";
-import { ICrawler, evaluateData, evaluateResponse } from "../../types/ICrawler";
-import { formatData } from "../../lib/Cafe24Parser";
-import { getProductNum } from "../../lib/URLparser";
+import { getCafe24Data } from '.';
+import { ICrawler, evaluateData, evaluateResponse } from '../../types/Crawl';
+import { formatData } from '../../lib/Cafe24Parser';
+import { getProductNum } from '../../lib/URLparser';
 
 declare const EC_SHOP_FRONT_NEW_OPTION_DATA;
 
@@ -14,8 +14,8 @@ export default class TheKnitCompanyCrawler implements ICrawler {
 
   evaluate = (productNum: number): evaluateResponse => {
     return {
-      type: "stock" as evaluateData,
-      data: EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[productNum]
+      type: 'stock' as evaluateData,
+      data: EC_SHOP_FRONT_NEW_OPTION_DATA.aItemStockData[productNum],
     };
   };
 
@@ -23,9 +23,9 @@ export default class TheKnitCompanyCrawler implements ICrawler {
     const optionNames = [];
     const { data: body } = await axios(this.url);
     const hi = cheerio.load(body);
-    hi(".detail_right_wrap > div > div > div > table > tbody > tr > th").each(
+    hi('.detail_right_wrap > div > div > div > table > tbody > tr > th').each(
       (_, ele) => {
-        optionNames.push(...ele.children[0].data.split("-"));
+        optionNames.push(...ele.children[0].data.split('-'));
       }
     );
     return Promise.resolve(optionNames);
