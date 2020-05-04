@@ -1,4 +1,4 @@
-import { evaluateResponse } from 'types/Crawl';
+import { evaluateResponse } from '../types/Crawl';
 
 export interface ICrawler {
   url: string;

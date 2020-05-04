@@ -1,4 +1,4 @@
-import { InfoCrawlResult } from 'types/InfoCrawl';
+import { InfoCrawlResult } from '../types/InfoCrawl';
 
 export const parseAll = (result: InfoCrawlResult): InfoCrawlResult => {
   return Object.keys(result).reduce((acc, key) => {
