@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 
 import { getCafe24Data } from '.';
-import { ICrawler, evaluateData, evaluateResponse } from '../../types/ICrawler';
+import { ICrawler, evaluateData, evaluateResponse } from '../../types/Crawl';
 import { formatData } from '../../lib/Cafe24Parser';
 import { getProductNum } from '../../lib/URLparser';
 
