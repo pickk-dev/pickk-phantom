@@ -54,8 +54,9 @@ export const _hivercokr = () => {
   )[0] as HTMLDivElement).textContent;
   const brandKor = (document.getElementsByClassName('list_store_title')[0]
     .children[0] as HTMLAnchorElement).text;
-  const imageUrl = (document.getElementById('imageGallery').children[1]
-    .children[0] as HTMLImageElement).src;
+  const imageUrl = (document.getElementById('imageGallery').children[
+    document.getElementById('imageGallery').children.length > 1 ? 1 : 0
+  ].children[0] as HTMLImageElement).src;
   let salePrice = (document.getElementsByClassName(
     'detail_price'
   )[0] as HTMLDivElement).textContent;
