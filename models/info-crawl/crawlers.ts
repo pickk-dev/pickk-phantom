@@ -47,3 +47,28 @@ export const _29cmcokr = () => {
     salePrice,
   };
 };
+
+export const _hivercokr = () => {
+  const name = (document.getElementsByClassName(
+    'detail_title'
+  )[0] as HTMLDivElement).textContent;
+  const brandKor = (document.getElementsByClassName('list_store_title')[0]
+    .children[0] as HTMLAnchorElement).text;
+  const imageUrl = (document.getElementById('imageGallery').children[0]
+    .children[0] as HTMLImageElement).src;
+  let salePrice = (document.getElementsByClassName(
+    'detail_price'
+  )[0] as HTMLDivElement).textContent;
+  let originalPrice = salePrice;
+  if (salePrice.indexOf('%') > -1) {
+    const { innerHTML } = document.getElementsByClassName('detail_price')[0];
+    salePrice = innerHTML.slice(
+      innerHTML.indexOf('</b>'),
+      innerHTML.indexOf('<span')
+    );
+    originalPrice = document.getElementsByClassName('detail_price')[0]
+      .children[1].innerHTML;
+  }
+
+  return { name, brandKor, imageUrl, salePrice, originalPrice };
+};
