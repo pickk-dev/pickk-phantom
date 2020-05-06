@@ -137,3 +137,19 @@ export const _ssfshopcom = () => {
   let originalPrice = priceList[1] || salePrice;
   return { name, brandKor, imageUrl, salePrice, originalPrice };
 };
+
+export const _matchesfashioncom = () => {
+  const name = (document.getElementsByClassName(
+    "pdp-description"
+  )[0] as HTMLSpanElement).innerText.trim();
+  const brandKor = (document.getElementById("breadcrumb").children[0]
+    .children[2].children[0] as HTMLAnchorElement).text.trim();
+  const imageUrl = (document.getElementById("slick-slide00").children[0]
+    .children[0].children[0] as HTMLImageElement).src;
+  let priceList = (document.getElementsByClassName(
+    "pdp-price"
+  )[0] as HTMLParagraphElement).innerText.split(/₩|\//);
+  let originalPrice = priceList[1].trim();
+  let salePrice = priceList.length === 3 ? originalPrice : priceList[2].trim();
+  return { name, brandKor, imageUrl, salePrice, originalPrice };
+};
