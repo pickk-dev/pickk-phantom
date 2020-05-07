@@ -153,3 +153,64 @@ export const _matchesfashioncom = () => {
   let salePrice = priceList.length === 3 ? originalPrice : priceList[2].trim();
   return { name, brandKor, imageUrl, salePrice, originalPrice };
 };
+
+export const _lfmallcokr = () => {
+  const name = document
+    .querySelector('meta[property="og:title"]')
+    .getAttribute("content");
+  const brandKor = document
+    .querySelector('meta[name="keywords"]')
+    .getAttribute("content")
+    .split(",")[1];
+  const imageUrl = document
+    .querySelector('meta[property="og:image"]')
+    .getAttribute("content");
+  let originalPrice = document
+    .querySelector('meta[property="rb:originalPrice"]')
+    .getAttribute("content");
+  let salePrice = document
+    .querySelector('meta[property="rb:salePrice"]')
+    .getAttribute("content");
+  return { name, brandKor, imageUrl, salePrice, originalPrice };
+};
+
+export const _onthelookcokr = () => {
+  const name = (document.getElementsByClassName(
+    "sc-jdfcpN"
+  )[0] as HTMLDivElement).innerText;
+  const brandKor = (document.getElementsByClassName(
+    "sc-bIqbHp"
+  )[0] as HTMLDivElement).innerText;
+  const imageUrl = (document.getElementsByClassName(
+    "sc-fkyLDJ"
+  )[0] as HTMLImageElement).src;
+  const originalPrice = (document.getElementsByClassName("sc-hMrMfs")[0]
+    .children[0] as HTMLDivElement).innerText;
+  const salePrice = (document.getElementsByClassName("sc-eopZyb")[0]
+    .children[0] as HTMLDivElement).innerText;
+  return { name, brandKor, imageUrl, salePrice, originalPrice };
+};
+
+export const _lookpincokr = () => {
+  const name = (document.getElementsByClassName(
+    "ProductDetailMobile_title__373rx"
+  )[0] as HTMLSpanElement).innerText;
+  const brandKor = (document.getElementsByClassName(
+    "StoreRowWithBookmark_name__rw46l"
+  )[0] as HTMLSpanElement).innerText;
+  const imageUrl = (document.getElementsByClassName(
+    "ProductDetailMobile_image__gmU9K"
+  )[0] as HTMLImageElement).src;
+  const salePrice = (document.getElementsByClassName(
+    "ProductDetailMobile_price__3RGzV"
+  )[0] as HTMLSpanElement).innerText;
+  const originalPrice =
+    document.getElementsByClassName(
+      "ProductDetailMobile_prevPrice__3huws"
+    )[0] === undefined
+      ? salePrice
+      : (document.getElementsByClassName(
+          "ProductDetailMobile_prevPrice__3huws"
+        )[0] as HTMLSpanElement).innerText;
+  return { name, brandKor, imageUrl, salePrice, originalPrice };
+};
