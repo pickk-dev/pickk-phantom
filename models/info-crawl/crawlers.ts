@@ -214,3 +214,15 @@ export const _lookpincokr = () => {
         )[0] as HTMLSpanElement).innerText;
   return { name, brandKor, imageUrl, salePrice, originalPrice };
 };
+
+export const _g9cokr = () => {
+  const name = (document.getElementById("subjText4") as HTMLElement).innerText;
+  const brandKor = (document.getElementById("subjText3") as HTMLSpanElement)
+    .innerText;
+  const imageUrl = (document.getElementById("goodsImage") as HTMLImageElement)
+    .src;
+  const originalPrice = (document.getElementById("subjText4") as HTMLElement)
+    .innerText;
+  const salePrice = originalPrice;
+  return { name, brandKor, imageUrl, salePrice, originalPrice };
+};
