@@ -23,6 +23,7 @@ import PartsCrawler from './parts';
 import FlareupCrawler from './flareup';
 import HaleineCrawler from './haleine';
 import Phos333Crawler from './phos333';
+import WazeCralwer from './waze';
 import { parseHostName } from '../../lib';
 
 export const getCrawler = (url: string): ICrawler => {
@@ -53,6 +54,7 @@ export const getCrawler = (url: string): ICrawler => {
   if (host === 'flareup.co.kr') return new FlareupCrawler(url);
   if (host === 'haleineshop.com') return new HaleineCrawler(url);
   if (host === 'phos333.com') return new Phos333Crawler(url);
+  if (host === 'waze8690s.cafe24.com') return new WazeCralwer(url);
 
   return null;
 };
