@@ -23,94 +23,37 @@ import PartsCrawler from './parts';
 import FlareupCrawler from './flareup';
 import HaleineCrawler from './haleine';
 import Phos333Crawler from './phos333';
+import { parseHostName } from '../../lib';
 
 export const getCrawler = (url: string): ICrawler => {
   const uniCodeUrl = encodeURI(url);
 
-  const { origin } = new URL(uniCodeUrl);
+  const host = parseHostName(new URL(uniCodeUrl).hostname);
 
-  if (origin === 'https://theknitcompany.com')
+  if (host === 'theknitcompany.com')
     return new TheKnitCompanyCrawler(uniCodeUrl);
-  if (origin === 'https://garment-lable.com')
-    return new GarmentLableCrawler(uniCodeUrl);
-  if (origin === 'http://86road.co.kr' || origin === 'https://86road.co.kr')
-    return new EightySixRoadCrawler(uniCodeUrl);
-  if (origin === 'http://fatalism.co.kr' || origin === 'https://fatalism.co.kr')
-    return new FatalismCrawler(uniCodeUrl);
-  if (
-    origin === 'http://piece-worker.com' ||
-    origin === 'https://piece-worker.com'
-  )
-    return new PieceWorkerCrawler(uniCodeUrl);
-  if (
-    origin === 'http://bananafit.co.kr' ||
-    origin === 'https://bananafit.co.kr'
-  )
-    return new BananafitCrawler(uniCodeUrl);
+  if (host === 'garment-lable.com') return new GarmentLableCrawler(uniCodeUrl);
+  if (host === '86road.co.kr') return new EightySixRoadCrawler(uniCodeUrl);
+  if (host === 'fatalism.co.kr') return new FatalismCrawler(uniCodeUrl);
+  if (host === 'piece-worker.com') return new PieceWorkerCrawler(uniCodeUrl);
+  if (host === 'bananafit.co.kr') return new BananafitCrawler(uniCodeUrl);
+  if (host === 'belier.co.kr') return new BelierCrawler(uniCodeUrl);
+  if (host === 'lohnt.co.kr') return new LohntCrawler(uniCodeUrl);
+  if (host === 'romanticmove.com') return new RomanticMoveCrawler(uniCodeUrl);
+  if (host === 'notnnot.com') return new NotnnotCrawler(uniCodeUrl);
+  if (host === 'costumeoclock.com') return new CostumeoclockCrawler(uniCodeUrl);
+  if (host === 'suare.co.kr') return new SuareCrawler(uniCodeUrl);
+  if (host === 'hance.kr') return new HanceCrawler(uniCodeUrl);
+  if (host === 'maison-mined.com') return new MaisonMinedCrawler(url);
+  if (host === 'advisory.co.kr') return new AdvisoryCrawler(url);
+  if (host === 'modnine.com') return new ModnineCrawler(url);
+  if (host === 'currentstore.co.kr') return new CurrentCrawler(url);
+  if (host === 'pavement.co.kr') return new PavementCrawler(url);
+  if (host === 'partsstore.kr') return new PartsCrawler(url);
+  if (host === 'flareup.co.kr') return new FlareupCrawler(url);
+  if (host === 'haleineshop.com') return new HaleineCrawler(url);
+  if (host === 'phos333.com') return new Phos333Crawler(url);
 
-  if (
-    origin === 'http://www.belier.co.kr' ||
-    origin === 'https://www.belier.co.kr'
-  )
-    return new BelierCrawler(uniCodeUrl);
-  if (origin === 'http://lohnt.co.kr' || origin === 'https://lohnt.co.kr')
-    return new LohntCrawler(uniCodeUrl);
-  if (
-    origin === 'http://romanticmove.com' ||
-    origin === 'https://romanticmove.com'
-  )
-    return new RomanticMoveCrawler(uniCodeUrl);
-  if (origin === 'http://notnnot.com' || origin === 'https://notnnot.com') {
-    return new NotnnotCrawler(uniCodeUrl);
-  }
-  if (
-    origin === 'http://costumeoclock.com' ||
-    origin === 'https://costumeoclock.com'
-  ) {
-    return new CostumeoclockCrawler(uniCodeUrl);
-  }
-  if (origin === 'http://suare.co.kr' || origin === 'https://suare.co.kr') {
-    return new SuareCrawler(uniCodeUrl);
-  }
-  if (origin === 'https://hance.kr') {
-    return new HanceCrawler(uniCodeUrl);
-  }
-  if (
-    origin === 'http://maison-mined.com' ||
-    origin === 'https://maison-mined.com'
-  ) {
-    return new MaisonMinedCrawler(url);
-  }
-  if (origin === 'http://advisory.co.kr') {
-    return new AdvisoryCrawler(url);
-  }
-  if (origin === 'http://modnine.com' || origin === 'https://modnine.com') {
-    return new ModnineCrawler(url);
-  }
-  if (
-    origin === 'http://currentstore.co.kr' ||
-    origin === 'https://currentstore.co.kr'
-  ) {
-    return new CurrentCrawler(url);
-  }
-  if (
-    origin === 'http://pavement.co.kr' ||
-    origin === 'https://pavement.co.kr'
-  ) {
-    return new PavementCrawler(url);
-  }
-  if (origin === 'http://partsstore.kr' || origin === 'https://partsstore.kr') {
-    return new PartsCrawler(url);
-  }
-  if (origin === 'http://flareup.co.kr' || origin === 'https://flareup.co.kr') {
-    return new FlareupCrawler(url);
-  }
-  if (origin === 'https://www.haleineshop.com') {
-    return new HaleineCrawler(url);
-  }
-  if (origin === 'http://www.phos333.com') {
-    return new Phos333Crawler(url);
-  }
   return null;
 };
 
