@@ -25,6 +25,7 @@ import HaleineCrawler from './haleine';
 import Phos333Crawler from './phos333';
 import WazeCralwer from './waze';
 import MassnounCrawler from './massnoun';
+import RdvzCrawler from './rdvz';
 import { parseHostName } from '../../lib';
 
 export const getCrawler = (url: string): ICrawler => {
@@ -57,6 +58,7 @@ export const getCrawler = (url: string): ICrawler => {
   if (host === 'phos333.com') return new Phos333Crawler(url);
   if (host === 'waze8690s.cafe24.com') return new WazeCralwer(url);
   if (host === 'massnoun.com') return new MassnounCrawler(url);
+  if (host === 'rdvz.kr') return new RdvzCrawler(url);
 
   return null;
 };
