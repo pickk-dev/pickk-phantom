@@ -35,7 +35,6 @@ export default class InfoCrawlService {
       await page.close();
       return Promise.resolve(result as InfoCrawlResult);
     });
-    console.log(result);
 
     return correct(parseAll(result));
   };

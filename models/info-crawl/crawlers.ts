@@ -37,13 +37,17 @@ export const _29cmcokr = () => {
     .trim()
     .slice(7);
 
+  const imageElement = document.querySelectorAll(
+    'body > ui-root > div > section > ui-item > div > div.detail_cnt_wrap > ui-detail-item > div > div.item_img_view > div > ruler-swiper-container > div > div.swiper-container > div > ruler-swiper-slide > div > div > ruler-blazy > img'
+  )[0] as HTMLImageElement;
+
   return {
     name: name.slice(
       name.indexOf('</span>') > 0 ? name.indexOf('</span>') + 7 : 0
     ),
-    imageUrl: (document.querySelectorAll(
-      'body > ui-root > div > section > ui-item > div > div.detail_cnt_wrap > ui-detail-item > div > div.item_img_view > div > ruler-swiper-container > div > div.swiper-container > div > ruler-swiper-slide > div > div > ruler-blazy > img'
-    )[0] as HTMLImageElement).src,
+    imageUrl:
+      imageElement.attributes.getNamedItem('data-blazy').value ||
+      imageElement.src,
     brandKor: select('<h1 _ngcontent-c37="" class="kor">', '</h1>'),
     originalPrice,
     salePrice,
