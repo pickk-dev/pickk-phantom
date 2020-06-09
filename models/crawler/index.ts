@@ -26,6 +26,7 @@ import Phos333Crawler from './phos333';
 import WazeCralwer from './waze';
 import MassnounCrawler from './massnoun';
 import RdvzCrawler from './rdvz';
+import NomanualCrawler from './nomanual';
 import { parseHostName } from '../../lib';
 
 export const getCrawler = (url: string): ICrawler => {
@@ -59,6 +60,7 @@ export const getCrawler = (url: string): ICrawler => {
   if (host === 'waze8690s.cafe24.com') return new WazeCralwer(url);
   if (host === 'massnoun.com') return new MassnounCrawler(url);
   if (host === 'rdvz.kr') return new RdvzCrawler(url);
+  if (host === 'nomanual-official.com') return new NomanualCrawler(url);
 
   return null;
 };
