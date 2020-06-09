@@ -31,6 +31,7 @@ import JosephtCrawler from './josepht';
 import EsnCrawler from './esn';
 import AddoffCrawler from './addoff';
 import OohAhhCrawler from './oohahh';
+import TheBurningCralwer from './the-burning';
 import { parseHostName } from '../../lib';
 
 export const getCrawler = (url: string): ICrawler => {
@@ -69,6 +70,7 @@ export const getCrawler = (url: string): ICrawler => {
   if (host === 'esnocturne.com') return new EsnCrawler(url);
   if (host === 'addoff.co.kr') return new AddoffCrawler(uniCodeUrl);
   if (host === 'oohahh.co.kr') return new OohAhhCrawler(uniCodeUrl);
+  if (host === 'the-burning.co.kr') return new TheBurningCralwer(uniCodeUrl);
 
   return null;
 };

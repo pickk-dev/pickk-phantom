@@ -56,7 +56,6 @@ export default class OohAhhCrawler implements ICrawler {
     const label = hi(
       'div.product-summary-wrap > div > div.col-sm-7.summary.entry-summary > form > table > tbody > tr > td.label > label'
     ).text();
-    console.log(itemIsSoldOut, label);
 
     const values = { [label]: [] };
     const isSoldOut = [];
