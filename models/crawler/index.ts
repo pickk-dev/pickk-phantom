@@ -28,6 +28,7 @@ import MassnounCrawler from './massnoun';
 import RdvzCrawler from './rdvz';
 import NomanualCrawler from './nomanual';
 import JosephtCrawler from './josepht';
+import EsnCrawler from './esn';
 import { parseHostName } from '../../lib';
 
 export const getCrawler = (url: string): ICrawler => {
@@ -63,6 +64,7 @@ export const getCrawler = (url: string): ICrawler => {
   if (host === 'rdvz.kr') return new RdvzCrawler(url);
   if (host === 'nomanual-official.com') return new NomanualCrawler(url);
   if (host === 'josepht.co.kr') return new JosephtCrawler(url);
+  if (host === 'esnocturne.com') return new EsnCrawler(url);
 
   return null;
 };
