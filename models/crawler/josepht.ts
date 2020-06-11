@@ -63,7 +63,7 @@ export default class JosephtCrawler implements ICrawler {
           ele.children[0].data.replace(/\n/, '').replace('[품절]', '').trim()
         );
         if (ele.children[0].data.includes('품절')) {
-          isSoldOut.push(index - 1);
+          isSoldOut.push([index - 1]);
         }
       }
     );

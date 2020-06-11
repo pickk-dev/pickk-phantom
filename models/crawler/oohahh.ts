@@ -65,7 +65,7 @@ export default class OohAhhCrawler implements ICrawler {
       if (index === 0) return;
       values[label].push(ele.attribs['value']);
       if (itemIsSoldOut) {
-        isSoldOut.push(index - 1);
+        isSoldOut.push([index - 1]);
       }
     });
     return Promise.resolve({

@@ -67,7 +67,7 @@ export default class NomanualCrawler implements ICrawler {
       if (index === 0) return;
       values[label].push(ele.attribs['data-option-value']);
       if (ele.attribs['data-soldout'] === 'true') {
-        isSoldOut.push(index - 1);
+        isSoldOut.push([index - 1]);
       }
     });
     return Promise.resolve({
