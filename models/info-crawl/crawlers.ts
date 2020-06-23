@@ -253,3 +253,23 @@ export const _kolonmallcom = () => {
 
   return { name, brandKor, imageUrl, salePrice, originalPrice };
 };
+
+export const _hiphopercom = () => {
+  const name = (document.querySelector('#getItemName') as HTMLDivElement)
+    .textContent;
+  const brandKor = (document.querySelector('#getBrandName') as HTMLDivElement)
+    .textContent;
+  const imageUrl = (document.querySelector(
+    'body > div:nth-child(2) > main > section.viewdetail.clear > div.imgs.on_w > div.visual > a > img'
+  ) as HTMLImageElement).src;
+  let salePrice =
+    document.querySelector(
+      'body > div:nth-child(2) > main > section.viewdetail.clear > div.info > dl:nth-child(3) > dd.price_txt > strong'
+    )?.textContent || '0';
+  let originalPrice =
+    document.querySelector(
+      'body > div:nth-child(2) > main > section.viewdetail.clear > div.info > dl:nth-child(3) > dd.dis_f.ai_c > del'
+    )?.textContent || '0';
+
+  return { name, brandKor, imageUrl, salePrice, originalPrice };
+};
