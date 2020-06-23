@@ -232,3 +232,24 @@ export const _g9cokr = () => {
   const salePrice = originalPrice;
   return { name, brandKor, imageUrl, salePrice, originalPrice };
 };
+
+export const _kolonmallcom = () => {
+  const name = (document.querySelector(
+    'div.info-group > form > div.title'
+  ) as HTMLDivElement).textContent;
+
+  const title = (document.querySelector('title') as HTMLTitleElement)
+    .textContent;
+  const brandKor = title.slice(title.indexOf('_') + 1).trim();
+  const imageUrl = (document.querySelector(
+    '#kolon-content > article > div.head-info-wrap > div.thumb-group > div.thumb.swiper-container.swiper-container-initialized.swiper-container-horizontal > div.swiper-wrapper > div > div > img.base'
+  ) as HTMLImageElement).src;
+  let salePrice =
+    document.querySelector('div.info-group > form > div.price > strong')
+      ?.textContent || '0';
+  let originalPrice =
+    document.querySelector('div.info-group > form > div.price > del')
+      ?.textContent || '0';
+
+  return { name, brandKor, imageUrl, salePrice, originalPrice };
+};
