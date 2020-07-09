@@ -37,6 +37,7 @@ import ToffeeCrawler from "./toffee";
 import CompagnoCrawler from "./compagno";
 import { parseHostName } from "../../lib";
 import AspivotCrawler from "./aspivot";
+import KutletshopCrawler from "./kutletshop";
 
 export const getCrawler = (url: string): ICrawler => {
   const uniCodeUrl = encodeURI(url);
@@ -79,6 +80,7 @@ export const getCrawler = (url: string): ICrawler => {
   if (host === "toffee.co.kr") return new ToffeeCrawler(uniCodeUrl);
   if (host === "compagno.co.kr") return new CompagnoCrawler(uniCodeUrl);
   if (host === "aspivot.com") return new AspivotCrawler(uniCodeUrl);
+  if (host === "kutletshop.com") return new KutletshopCrawler(uniCodeUrl);
 
   return null;
 };
