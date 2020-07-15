@@ -38,6 +38,14 @@ import CompagnoCrawler from "./compagno";
 import { parseHostName } from "../../lib";
 import AspivotCrawler from "./aspivot";
 import KutletshopCrawler from "./kutletshop";
+import BalluteCrawler from "./ballute";
+import WzustudioCrawler from "./wuzustudio";
+import OjosCrawler from "./ojos";
+import AmesWorldwideCrawler from "./ames-worldwide";
+import MillionCorCrawler from "./millioncor";
+import LetterFromMoonCrawler from "./letterfrommoon";
+import OddoneoutCrawler from "./oddoneout";
+import RoccirocciCrawler from "./roccirocci";
 
 export const getCrawler = (url: string): ICrawler => {
   const uniCodeUrl = encodeURI(url);
@@ -81,6 +89,16 @@ export const getCrawler = (url: string): ICrawler => {
   if (host === "compagno.co.kr") return new CompagnoCrawler(uniCodeUrl);
   if (host === "aspivot.com") return new AspivotCrawler(uniCodeUrl);
   if (host === "kutletshop.com") return new KutletshopCrawler(uniCodeUrl);
+  if (host === "ballute.co.kr") return new BalluteCrawler(uniCodeUrl);
+  if (host === "wuzustudio.com") return new WzustudioCrawler(uniCodeUrl);
+  if (host === "ojos.kr") return new OjosCrawler(uniCodeUrl);
+  if (host === "ames-worldwide.com")
+    return new AmesWorldwideCrawler(uniCodeUrl);
+  if (host === "millioncor.com") return new MillionCorCrawler(uniCodeUrl);
+  if (host === "letterfrommoon.com")
+    return new LetterFromMoonCrawler(uniCodeUrl);
+  if (host === "oddoneout.co.kr") return new OddoneoutCrawler(uniCodeUrl);
+  if (host === "roccirocci.com") return new RoccirocciCrawler(uniCodeUrl);
 
   return null;
 };
