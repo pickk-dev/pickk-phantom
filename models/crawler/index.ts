@@ -46,6 +46,7 @@ import MillionCorCrawler from "./millioncor";
 import LetterFromMoonCrawler from "./letterfrommoon";
 import OddoneoutCrawler from "./oddoneout";
 import RoccirocciCrawler from "./roccirocci";
+import CharmsCrawler from "./charms";
 
 export const getCrawler = (url: string): ICrawler => {
   const uniCodeUrl = encodeURI(url);
@@ -99,6 +100,7 @@ export const getCrawler = (url: string): ICrawler => {
     return new LetterFromMoonCrawler(uniCodeUrl);
   if (host === "oddoneout.co.kr") return new OddoneoutCrawler(uniCodeUrl);
   if (host === "roccirocci.com") return new RoccirocciCrawler(uniCodeUrl);
+  if (host === "charms.kr") return new CharmsCrawler(uniCodeUrl);
 
   return null;
 };
