@@ -8,7 +8,7 @@
     "local": "tsc *.ts --downlevelIteration && sls offline start",
     "deploy": "export $(cat .env | xargs) && sls deploy",
     "watch": "tsc -w",
-    "build": "tsc *.ts --downlevelIteration",
+    "build": "tsc",
     "lint": "tslint '*.ts'"
   },
   "keywords": [],
