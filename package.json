@@ -17,10 +17,13 @@
   "dependencies": {
     "apicache": "^1.5.3",
     "axios": "^0.19.2",
+    "charset": "^1.0.1",
     "cheerio": "^1.0.0-rc.3",
     "express": "^4.17.1",
+    "iconv-lite": "^0.6.2",
     "phantom": "^6.3.0",
     "phantom-pool": "^1.2.2",
+    "request": "^2.88.2",
     "url": "^0.11.0"
   },
   "devDependencies": {
