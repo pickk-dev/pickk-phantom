@@ -24,7 +24,7 @@ export default class RoccirocciCrawler implements ICrawler {
     const { data: body } = await axios(this.url);
     const hi = cheerio.load(body);
     hi(
-      "div.xans-element-.xans-product.xans-product-option > div.mun-detail-title"
+      "#mun_option > div.xans-element-.xans-product.xans-product-option.mun-detail-list.mun-option.xans-record- > div.mun-detail-title"
     ).each((_, ele) => {
       optionNames.push(...ele.children[0].data.split("-"));
     });
