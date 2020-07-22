@@ -24,11 +24,6 @@ export default class LetterFromMoonCrawler implements ICrawler {
     const optionNames = [];
     const { data: body } = await axios(this.url);
     const hi = cheerio.load(body);
-    // console.log(
-    //   hi.html(
-    //     "div.xans-element-.xans-product.xans-product-action > div.buttonArea > span > button.gloBtn-blk.displaynone"
-    //   )
-    // );
     hi(
       "div.xans-element-.xans-product.xans-product-option.xans-record- > span.optName"
     ).each((_, ele) => {
