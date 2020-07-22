@@ -47,6 +47,15 @@ import LetterFromMoonCrawler from "./letterfrommoon";
 import OddoneoutCrawler from "./oddoneout";
 import RoccirocciCrawler from "./roccirocci";
 import CharmsCrawler from "./charms";
+import BibyseobCrawler from "./bibyseob";
+import DenmadeCrawler from "./denmade";
+import FanacultCrawler from "./fanacult";
+import NordstudioCrawler from "./nordstudio";
+import KingArchivesCrawler from "./king-archives";
+import _13MonthCrawler from "./13month";
+import AqostudiospaceCrawler from "./aqostudiospace";
+import FuzaCrawler from "./fuza";
+import MongdolCrawler from "./mongdol";
 
 export const getCrawler = (url: string): ICrawler => {
   const uniCodeUrl = encodeURI(url);
@@ -101,6 +110,15 @@ export const getCrawler = (url: string): ICrawler => {
   if (host === "oddoneout.co.kr") return new OddoneoutCrawler(uniCodeUrl);
   if (host === "roccirocci.com") return new RoccirocciCrawler(uniCodeUrl);
   if (host === "charms.kr") return new CharmsCrawler(uniCodeUrl);
+  if (host === "bibyseob.kr") return new BibyseobCrawler(uniCodeUrl);
+  if (host === "denmade.co.kr") return new DenmadeCrawler(uniCodeUrl);
+  if (host === "fanacult.com") return new FanacultCrawler(uniCodeUrl);
+  if (host === "nordstudio.co.kr") return new NordstudioCrawler(uniCodeUrl);
+  if (host === "k-ing.kr") return new KingArchivesCrawler(uniCodeUrl);
+  if (host === "13month.com") return new _13MonthCrawler(uniCodeUrl);
+  if (host === "aqostudio.com") return new AqostudiospaceCrawler(uniCodeUrl);
+  if (host === "fuza.world") return new FuzaCrawler(uniCodeUrl);
+  if (host === "costumeoclock.com") return new MongdolCrawler(uniCodeUrl);
 
   return null;
 };

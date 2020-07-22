@@ -21,21 +21,16 @@ export default class LetterFromMoonCrawler implements ICrawler {
   };
 
   getOptionNames = async () => {
-    const optionNames = [];
+    const optionNames = ["SIZE"];
     const { data: body } = await axios(this.url);
     const hi = cheerio.load(body);
-    hi(
-      "div.xans-element-.xans-product.xans-product-option.xans-record- > span.optName"
-    ).each((_, ele) => {
-      optionNames.push(ele.children[0].data);
-    });
     this.setItemIsSoldOut(hi);
     return Promise.resolve(optionNames);
   };
 
   setItemIsSoldOut = (hi: CheerioStatic) => {
     hi(
-      "div.xans-element-.xans-product.xans-product-action > div.buttonArea > span > button.gloBtn-blk.displaynone"
+      "#contents > div.xans-element-.xans-product.xans-product-detail > div.detailArea > div.infoArea > div.xans-element-.xans-product.xans-product-action > div.btnArea.b_half.b_left.displaynone > span"
     ).each((_, ele) => {
       if (ele.children[0].data === "SOLD OUT") this.itemIsSoldOut = false;
     });
@@ -49,6 +44,7 @@ export default class LetterFromMoonCrawler implements ICrawler {
 
   request = async () => {
     const optionNames = await this.getOptionNames();
+    console.log("hi");
     const { type, data } = await getCafe24Data(
       this.url,
       this.evaluate,
@@ -58,12 +54,11 @@ export default class LetterFromMoonCrawler implements ICrawler {
       data === undefined
         ? formatData(type, this.itemIsSoldOut, optionNames)
         : formatData(type, data, optionNames);
-    return Promise.resolve({
-      ...option,
-      isSoldOut:
-        this.itemIsSoldOut && optionNames.length !== 0
-          ? option.values[optionNames[0]].map((_v, i) => [i])
-          : [],
-    });
+    return this.itemIsSoldOut
+      ? Promise.resolve({
+          ...option,
+          isSoldOut: option.values[optionNames[0]].map((_v, i) => [i]),
+        })
+      : Promise.resolve(option);
   };
 }

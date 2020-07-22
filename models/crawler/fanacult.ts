@@ -8,7 +8,7 @@ import { getProductNum } from "../../lib/URLparser";
 
 declare const EC_SHOP_FRONT_NEW_OPTION_DATA;
 
-export default class LetterFromMoonCrawler implements ICrawler {
+export default class FanacultCrawler implements ICrawler {
   url: string;
   productNum: number;
   itemIsSoldOut: boolean;
@@ -24,18 +24,16 @@ export default class LetterFromMoonCrawler implements ICrawler {
     const optionNames = [];
     const { data: body } = await axios(this.url);
     const hi = cheerio.load(body);
-    hi(
-      "div.xans-element-.xans-product.xans-product-option.xans-record- > span.optName"
-    ).each((_, ele) => {
-      optionNames.push(ele.children[0].data);
+    hi("#product_option_id1").each((_, ele) => {
+      optionNames.push(ele.attribs["option_title"]);
     });
-    this.setItemIsSoldOut(hi);
+    if (optionNames.length === 0) this.setItemIsSoldOut(hi);
     return Promise.resolve(optionNames);
   };
 
   setItemIsSoldOut = (hi: CheerioStatic) => {
     hi(
-      "div.xans-element-.xans-product.xans-product-action > div.buttonArea > span > button.gloBtn-blk.displaynone"
+      "div.xans-element-.xans-product.xans-product-action.ec-base-button.gColumn > a.btnSubmit.displaynone"
     ).each((_, ele) => {
       if (ele.children[0].data === "SOLD OUT") this.itemIsSoldOut = false;
     });
@@ -58,12 +56,7 @@ export default class LetterFromMoonCrawler implements ICrawler {
       data === undefined
         ? formatData(type, this.itemIsSoldOut, optionNames)
         : formatData(type, data, optionNames);
-    return Promise.resolve({
-      ...option,
-      isSoldOut:
-        this.itemIsSoldOut && optionNames.length !== 0
-          ? option.values[optionNames[0]].map((_v, i) => [i])
-          : [],
-    });
+
+    return Promise.resolve(option);
   };
 }
