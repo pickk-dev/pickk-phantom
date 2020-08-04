@@ -56,6 +56,14 @@ import _13MonthCrawler from "./13month";
 import AqostudiospaceCrawler from "./aqostudiospace";
 import FuzaCrawler from "./fuza";
 import MongdolCrawler from "./mongdol";
+import EaseCrawler from "./ease";
+import InrowsCrawler from "./inrows";
+import LuoespacCrawler from "./luoespac";
+import EsfaiCrawler from "./esfai";
+import JuanHommeCrawler from "./juan-homme";
+import OurscopeCrawler from "./ourscope";
+import MimthewardrobeCrawler from "./mimthewardrobe";
+import DgreCrawler from "./dgre";
 
 export const getCrawler = (url: string): ICrawler => {
   const uniCodeUrl = encodeURI(url);
@@ -119,6 +127,16 @@ export const getCrawler = (url: string): ICrawler => {
   if (host === "aqostudio.com") return new AqostudiospaceCrawler(uniCodeUrl);
   if (host === "fuza.world") return new FuzaCrawler(uniCodeUrl);
   if (host === "costumeoclock.com") return new MongdolCrawler(uniCodeUrl);
+  if (host === "easestore.co.kr") return new EaseCrawler(uniCodeUrl);
+  if (host === "inrows.co.kr") return new InrowsCrawler(uniCodeUrl);
+  if (host === "luoespac.co.kr") return new LuoespacCrawler(uniCodeUrl);
+  if (host === "esfai.co.kr") return new EsfaiCrawler(uniCodeUrl);
+  if (uniCodeUrl.includes("smartstore.naver.com/juan_homme"))
+    return new JuanHommeCrawler(uniCodeUrl);
+  if (host === "ourscope.co.kr") return new OurscopeCrawler(uniCodeUrl);
+  if (host === "mimthewardrobe.com")
+    return new MimthewardrobeCrawler(uniCodeUrl);
+  if (host === "dgre.co.kr") return new DgreCrawler(uniCodeUrl);
 
   return null;
 };
