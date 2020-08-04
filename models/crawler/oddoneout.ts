@@ -8,7 +8,7 @@ import { getProductNum } from "../../lib/URLparser";
 
 declare const EC_SHOP_FRONT_NEW_OPTION_DATA;
 
-export default class LetterFromMoonCrawler implements ICrawler {
+export default class OddoneoutCrawler implements ICrawler {
   url: string;
   productNum: number;
   itemIsSoldOut: boolean;
