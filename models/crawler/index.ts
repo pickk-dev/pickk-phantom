@@ -64,6 +64,7 @@ import JuanHommeCrawler from "./juan-homme";
 import OurscopeCrawler from "./ourscope";
 import MimthewardrobeCrawler from "./mimthewardrobe";
 import DgreCrawler from "./dgre";
+import NodeArchiveCrawler from "./node-archive";
 
 export const getCrawler = (url: string): ICrawler => {
   const uniCodeUrl = encodeURI(url);
@@ -137,6 +138,7 @@ export const getCrawler = (url: string): ICrawler => {
   if (host === "mimthewardrobe.com")
     return new MimthewardrobeCrawler(uniCodeUrl);
   if (host === "dgre.co.kr") return new DgreCrawler(uniCodeUrl);
+  if (host === "nodearchive.com") return new NodeArchiveCrawler(uniCodeUrl);
 
   return null;
 };
