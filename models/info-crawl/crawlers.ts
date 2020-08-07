@@ -1,56 +1,40 @@
 export const _29cmcokr = () => {
-  const { innerHTML } = document.body;
+  const name = document.querySelector(
+    'div.item_detail_view > ui-detail-order > div.detail_order_area > div.prd_info > div.info > div'
+  ).textContent;
 
-  const select = (startText, endText, startIndex?) => {
-    const start = innerHTML.indexOf(startText, startIndex) + startText.length;
-    const end = innerHTML.indexOf(endText, start);
-    return innerHTML.slice(start, end);
-  };
+  const imageUrlElement = document.querySelector(
+    'div.detail_item > div.item_img_view > div > ruler-swiper-container > div > div.swiper-container > div > ruler-swiper-slide > div > div > ruler-blazy > img'
+  );
 
-  let originalPrice = select(
-    '<!----><div _ngcontent-c33="" class="o">\n                    <span _ngcontent-c33="" class="num">',
-    '</span>',
-    0
-  );
-  let salePrice = select(
-    '%</span> ',
-    '<em _ngcontent-c33="" class="unit">원</em></span>',
-    innerHTML.indexOf(
-      '<span _ngcontent-c33="" class="num"><span _ngcontent-c33="">'
-    )
-  );
-  if (
-    innerHTML.indexOf(
-      '<!----><div _ngcontent-c33="" class="o">\n                    <span _ngcontent-c33="" class="num">',
-      0
-    ) === -1
-  ) {
-    originalPrice = select(
-      '<!----><div _ngcontent-c33="" class="p">\n                    <span _ngcontent-c33="" class="num">',
-      '<em',
-      0
-    );
-    salePrice = '0';
+  const imageUrl =
+    imageUrlElement.getAttribute('data-blazy') ||
+    imageUrlElement.getAttribute('src');
+
+  const brandKor = document.querySelector(
+    'div.item_detail_view > div.prd_brand_area h1.kor'
+  ).textContent;
+
+  let originalPrice = document.querySelector(
+    'body > ui-root > div > section > ui-item > div > div.detail_cnt_wrap > ui-detail-item > div > div.item_detail_view > ui-detail-order > div.detail_order_area > div.prd_price > div > div > div.o > span'
+  )?.textContent;
+
+  let salePrice = document.querySelector(
+    'body > ui-root > div > section > ui-item > div > div.detail_cnt_wrap > ui-detail-item > div > div.item_detail_view > ui-detail-order > div.detail_order_area > div.prd_price > div > div > div.s > span'
+  )?.textContent;
+
+  if (!originalPrice && !salePrice) {
+    originalPrice = salePrice = document.querySelector(
+      'body > ui-root > div > section > ui-item > div > div.detail_cnt_wrap > ui-detail-item > div > div.item_detail_view > ui-detail-order > div.detail_order_area > div.prd_price > div > div > div > span'
+    )?.textContent;
   }
 
-  const name = select('<div _ngcontent-c33="" class="name">', '</div>')
-    .trim()
-    .slice(7);
-
-  const imageElement = document.querySelectorAll(
-    'body > ui-root > div > section > ui-item > div > div.detail_cnt_wrap > ui-detail-item > div > div.item_img_view > div > ruler-swiper-container > div > div.swiper-container > div > ruler-swiper-slide > div > div > ruler-blazy > img'
-  )[0] as HTMLImageElement;
-
   return {
-    name: name.slice(
-      name.indexOf('</span>') > 0 ? name.indexOf('</span>') + 7 : 0
-    ),
-    imageUrl:
-      imageElement.attributes.getNamedItem('data-blazy').value ||
-      imageElement.src,
-    brandKor: select('<h1 _ngcontent-c37="" class="kor">', '</h1>'),
+    name: name.replace('\n', '').trim(),
+    brandKor,
+    imageUrl,
+    salePrice: salePrice.slice(salePrice.indexOf('%') + 1),
     originalPrice,
-    salePrice,
   };
 };
 
@@ -136,11 +120,11 @@ export const _ssfshopcom = () => {
     ];
   const imageUrl = (document.getElementsByClassName('lslide')[0].children[0]
     .children[0] as HTMLImageElement).src;
-  let priceList = (document.getElementsByClassName(
+  const priceList = (document.getElementsByClassName(
     'price'
   )[0] as HTMLDivElement).innerText.split(/ | /);
-  let salePrice = priceList[0];
-  let originalPrice = priceList[1] || salePrice;
+  const salePrice = priceList[0];
+  const originalPrice = priceList[1] || salePrice;
   return { name, brandKor, imageUrl, salePrice, originalPrice };
 };
 
@@ -152,11 +136,12 @@ export const _matchesfashioncom = () => {
     .children[2].children[0] as HTMLAnchorElement).text.trim();
   const imageUrl = (document.getElementById('slick-slide00').children[0]
     .children[0].children[0] as HTMLImageElement).src;
-  let priceList = (document.getElementsByClassName(
+  const priceList = (document.getElementsByClassName(
     'pdp-price'
   )[0] as HTMLParagraphElement).innerText.split(/₩|\//);
-  let originalPrice = priceList[1].trim();
-  let salePrice = priceList.length === 3 ? originalPrice : priceList[2].trim();
+  const originalPrice = priceList[1].trim();
+  const salePrice =
+    priceList.length === 3 ? originalPrice : priceList[2].trim();
   return { name, brandKor, imageUrl, salePrice, originalPrice };
 };
 
@@ -171,10 +156,10 @@ export const _lfmallcokr = () => {
   const imageUrl = document
     .querySelector('meta[property="og:image"]')
     .getAttribute('content');
-  let originalPrice = document
+  const originalPrice = document
     .querySelector('meta[property="rb:originalPrice"]')
     .getAttribute('content');
-  let salePrice = document
+  const salePrice = document
     .querySelector('meta[property="rb:salePrice"]')
     .getAttribute('content');
   return { name, brandKor, imageUrl, salePrice, originalPrice };
@@ -244,10 +229,10 @@ export const _kolonmallcom = () => {
   const imageUrl = (document.querySelector(
     '#kolon-content > article > div.head-info-wrap > div.thumb-group > div.thumb.swiper-container.swiper-container-initialized.swiper-container-horizontal > div.swiper-wrapper > div > div > img.base'
   ) as HTMLImageElement).src;
-  let salePrice =
+  const salePrice =
     document.querySelector('div.info-group > form > div.price > strong')
       ?.textContent || '0';
-  let originalPrice =
+  const originalPrice =
     document.querySelector('div.info-group > form > div.price > del')
       ?.textContent || '0';
 
@@ -262,11 +247,11 @@ export const _hiphopercom = () => {
   const imageUrl = (document.querySelector(
     'body > div:nth-child(2) > main > section.viewdetail.clear > div.imgs.on_w > div.visual > a > img'
   ) as HTMLImageElement).src;
-  let salePrice =
+  const salePrice =
     document.querySelector(
       'body > div:nth-child(2) > main > section.viewdetail.clear > div.info > dl:nth-child(3) > dd.price_txt > strong'
     )?.textContent || '0';
-  let originalPrice =
+  const originalPrice =
     document.querySelector(
       'body > div:nth-child(2) > main > section.viewdetail.clear > div.info > dl:nth-child(3) > dd.dis_f.ai_c > del'
     )?.textContent || '0';
