@@ -21,16 +21,17 @@ export type evaluateResponse = {
   data: stockData | optionDefaultData | boolean;
 };
 
-export type evaluateData = 'stock' | 'optionDefault';
+export type evaluateData = "stock" | "optionDefault";
 
 export type stockData = {
   [name: string]: {
     option_value_orginal: string[];
     stock_number: number;
-    is_auto_soldout: 'T' | 'F';
-    is_selling: 'T' | 'F';
+    is_auto_soldout: "T" | "F";
+    is_selling: "T" | "F";
     stock_price: string;
     option_value_original: string[];
+    option_name: string;
   };
 };
 
