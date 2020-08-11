@@ -1,13 +1,15 @@
 import { getCrawler } from '../models/crawler';
-import MongdolCrawler from 'models/crawler/mongdol';
+import MongdolCrawler from '../models/crawler/mongdol';
 
-const request = (url: string) => {
+const request = async (url: string) => {
   const crawler = getCrawler(url);
   try {
-    return crawler.request();
+    const result = await crawler.request();
+    return result;
   } catch (err) {
     if (url.includes('costumeoclock')) {
-      return new MongdolCrawler(encodeURI(url)).request();
+      const result = await new MongdolCrawler(encodeURI(url)).request();
+      return result;
     }
     throw err;
   }

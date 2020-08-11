@@ -4,7 +4,7 @@ import { getCafe24Data } from '.';
 import { ICrawler, evaluateData, evaluateResponse } from '../../types/Crawl';
 import { formatData } from '../../lib/Cafe24Parser';
 import { getProductNum } from '../../lib/URLparser';
-import { requestHtml } from 'lib';
+import { requestHtml } from '../../lib';
 
 declare const EC_SHOP_FRONT_NEW_OPTION_DATA;
 
