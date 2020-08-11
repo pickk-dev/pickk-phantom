@@ -25,8 +25,11 @@ export default class MongdolCrawler implements ICrawler {
 
     const SEARCH_TEXT = "option_stock_data = '";
     const start = body.indexOf(SEARCH_TEXT) + SEARCH_TEXT.length;
-    const end = body.indexOf('"}\'', start);
-    const optionData = JSON.parse(body.slice(start, end).replace(/\\/, ''));
+    const end = body.indexOf("';var stock_manage", start);
+    const optionDataStr = decodeURI(
+      body.slice(start, end).replace(/\\/gi, '"').replace(/\"\"/gi, '"')
+    );
+    const optionData = JSON.parse(optionDataStr);
 
     hi(
       '#contents > div.container2 > div.item2 > div > div.infoArea > table > tbody.xans-element-.xans-product.xans-product-option.xans-record- > tr > th'
