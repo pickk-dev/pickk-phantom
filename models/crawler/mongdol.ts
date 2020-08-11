@@ -1,6 +1,5 @@
 import * as cheerio from 'cheerio';
 
-import { getCafe24Data } from '.';
 import { ICrawler, evaluateData, evaluateResponse } from '../../types/Crawl';
 import { formatData } from '../../lib/Cafe24Parser';
 import { getProductNum } from '../../lib/URLparser';
@@ -23,12 +22,18 @@ export default class MongdolCrawler implements ICrawler {
     const optionNames = [];
     const body = await requestHtml(this.url);
     const hi = cheerio.load(body);
+
+    const SEARCH_TEXT = "option_stock_data = '";
+    const start = body.indexOf(SEARCH_TEXT) + SEARCH_TEXT.length;
+    const end = body.indexOf('"}\'', start);
+    const optionData = JSON.parse(body.slice(start, end).replace(/\\/, ''));
+
     hi(
       '#contents > div.container2 > div.item2 > div > div.infoArea > table > tbody.xans-element-.xans-product.xans-product-option.xans-record- > tr > th'
     ).each((_, ele) => {
       optionNames.push(ele.children[0].data);
     });
-    return Promise.resolve(optionNames);
+    return Promise.resolve([optionNames, optionData]);
   };
 
   constructor(url: string) {
@@ -37,13 +42,8 @@ export default class MongdolCrawler implements ICrawler {
   }
 
   request = async () => {
-    const optionNames = await this.getOptionNames();
-    const { type, data } = await getCafe24Data(
-      this.url,
-      this.evaluate,
-      this.productNum
-    );
-    const option = formatData(type, data, optionNames);
+    const [optionNames, optionData] = await this.getOptionNames();
+    const option = formatData('stock' as evaluateData, optionData, optionNames);
     return Promise.resolve(option);
   };
 }
