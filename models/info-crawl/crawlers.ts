@@ -258,3 +258,25 @@ export const _hiphopercom = () => {
 
   return { name, brandKor, imageUrl, salePrice, originalPrice };
 };
+
+export const _hyundaihmallcom = () => {
+  const name = (document.querySelector(
+    'h3.pdtTitle'
+  ) as HTMLHeadingElement)?.textContent
+    ?.replace(/\n/gi, '')
+    .trim();
+  const brandKor = '현대몰';
+  const imageUrl = (document.querySelector(
+    '#prd_ipzoom > div._frm_input > img._img_input._active'
+  ) as HTMLImageElement)?.src;
+  const salePrice =
+    document.querySelector(
+      '#content > div > div.pdr_wrap > div.prdInfo_wrap > div.priceCont > p.finalPrice.number.hasDC > strong'
+    )?.textContent || '0';
+  const originalPrice =
+    document.querySelector(
+      '#content > div > div.pdr_wrap > div.prdInfo_wrap > div.priceCont > p:nth-child(1) > span > strong'
+    )?.textContent || '0';
+
+  return { name, brandKor, imageUrl, salePrice, originalPrice };
+};
