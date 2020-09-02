@@ -1,0 +1,61 @@
+name: pickk-phantom deploy
+
+# master 브랜치에 push 되었을 때,(pr올라온 브랜치가 master에 merge되었을 때) 실행된다
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Notify to slack (CREATED)
+        uses: 8398a7/action-slack@v3
+        with:
+          status: custom
+          fields: workflow,job,commit,repo,ref,author,took
+          custom_payload: |
+            { 
+              attachments: [{
+                color: '#AAA',
+                text: `${process.env.AS_WORKFLOW}\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO} CREATED :white_circle:`,
+                footer: `by ${process.env.AS_AUTHOR}`
+              }]
+            }
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      # 배포서버에 ssh로 접속해서 pull-build-restart한다.
+      - name: ssh pull-build-deploy
+        uses: appleboy/ssh-action@master
+        # ssh 접속을 위해 필요한 HOST, USERNAME, SSH_PRIVATE_KEY는
+        # github 저장소 secrets에 등록해둔다
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd item-option-crawl/
+            git pull origin master
+            npm run build
+            pm2 restart index
+
+      - name: Notify to slack (RESULT)
+        uses: 8398a7/action-slack@v3
+        with:
+          status: custom
+          fields: workflow,job,commit,repo,ref,author,took
+          custom_payload: |
+            { 
+              attachments: [{
+                color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
+                text: `${process.env.AS_WORKFLOW}\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO} ${'${{ job.status }}' === 'success' ? 'SUCCEED :tada:' : 'FAILED :x:'}`,
+                footer: `by ${process.env.AS_AUTHOR} took ${process.env.AS_TOOK}`
+              }]
+            }
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
