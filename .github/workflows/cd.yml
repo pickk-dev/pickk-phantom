@@ -1,6 +1,9 @@
-name: CD
+name: pickk-phantom deploy
 
-on: [push]
+# master 브랜치에 push 되었을 때,(pr올라온 브랜치가 master에 merge되었을 때) 실행된다
+on:
+  push:
+    branches: [master]
 
 jobs:
   build:
