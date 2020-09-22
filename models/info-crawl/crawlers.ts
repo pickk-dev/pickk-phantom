@@ -109,6 +109,7 @@ export const _ssfshopcom = () => {
     'Tory Burch': '토리 버치',
     'PLAY COMME des GARCONS': '플레이 꼼데 가르송',
   };
+
   const name = (document.getElementById('goodDtlTitle') as HTMLHeadingElement)
     .innerText;
   const brandKor =
@@ -125,7 +126,27 @@ export const _ssfshopcom = () => {
   )[0] as HTMLDivElement).innerText.split(/ | /);
   const salePrice = priceList[0];
   const originalPrice = priceList[1] || salePrice;
-  return { name, brandKor, imageUrl, salePrice, originalPrice };
+  const isSoldout =
+    document.getElementById('restockSoldOut').style.display !== 'none';
+
+  const images = [];
+  const imageEles = document
+    .getElementById('about')
+    .getElementsByTagName('img');
+  for (let i = 0; i < imageEles.length; ++i) {
+    const imageEle = imageEles.item(i);
+    images.push(imageEle.getAttribute('src'));
+  }
+
+  return {
+    name,
+    brandKor,
+    imageUrl,
+    salePrice,
+    originalPrice,
+    isSoldout,
+    images,
+  };
 };
 
 export const _matchesfashioncom = () => {
@@ -260,6 +281,29 @@ export const _hiphopercom = () => {
 };
 
 export const _hyundaihmallcom = () => {
+  const name = (document.querySelector(
+    'h3.pdtTitle'
+  ) as HTMLHeadingElement)?.textContent
+    ?.replace(/\n/gi, '')
+    .trim();
+  const brandKor = '현대몰';
+  const imageUrl = (document.querySelector(
+    '#prd_ipzoom > div._frm_input > img._img_input._active'
+  ) as HTMLImageElement)?.src;
+  const salePrice =
+    document.querySelector(
+      '#content > div > div.pdr_wrap > div.prdInfo_wrap > div.priceCont > p.finalPrice.number.hasDC > strong'
+    )?.textContent || '0';
+  const originalPrice =
+    document.querySelector(
+      '#content > div > div.pdr_wrap > div.prdInfo_wrap > div.priceCont > p:nth-child(1) > span > strong'
+    )?.textContent || '0';
+
+  return { name, brandKor, imageUrl, salePrice, originalPrice };
+};
+
+export const _ssensecom = () => {
+  return document.body.innerHTML;
   const name = (document.querySelector(
     'h3.pdtTitle'
   ) as HTMLHeadingElement)?.textContent
