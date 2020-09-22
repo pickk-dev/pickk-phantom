@@ -28,6 +28,9 @@ export default class OptionCrawlService {
       const page = await instance.createPage();
       await page.clearCookies();
       await page.open(this.url);
+      await new Promise((resolve) => {
+        setTimeout(resolve, this.url.includes('ssfshop') ? 300 : 0);
+      });
       const result = await page.evaluate(this.crawler);
       await page.close();
       return Promise.resolve(result as OptionResult);
