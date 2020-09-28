@@ -29,7 +29,7 @@ export default class InfoCrawlService {
       await page.clearCookies();
       await page.open(this.url);
       await new Promise((resolve) => {
-        setTimeout(resolve, 1500);
+        setTimeout(resolve, this.url.includes('nike') ? 0 : 1500);
       });
       const result = await page.evaluate(this.crawler);
       await page.close();

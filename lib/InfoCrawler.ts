@@ -39,6 +39,9 @@ export const correct = (result: InfoCrawlResult): InfoCrawlResult => {
 };
 
 export const strToNumber = (str: string): number => {
+  if (typeof str !== 'string') {
+    return str;
+  }
   return Number(
     str.slice(0, str.indexOf('.') + 1 || str.length).replace(/[^0-9]/g, '')
   );

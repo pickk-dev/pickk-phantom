@@ -186,6 +186,19 @@ export const _lfmallcokr = () => {
   return { name, brandKor, imageUrl, salePrice, originalPrice };
 };
 
+export const _nikecom = () => {
+  const name = document.querySelector('h1.title-wrap > span.tit').textContent;
+  const brandKor = '나이키';
+  const imageUrl = document
+    .querySelector('meta[property="og:image"]')
+    .getAttribute('content');
+  const originalPrice =
+    document.querySelector('div.price-wrap span.price-sale')?.textContent || 0;
+  const salePrice = document.querySelector('div.price-wrap span.price > strong')
+    .textContent;
+  return { name, brandKor, imageUrl, salePrice, originalPrice };
+};
+
 export const _onthelookcokr = () => {
   const name = (document.getElementsByClassName(
     'sc-jdfcpN'
