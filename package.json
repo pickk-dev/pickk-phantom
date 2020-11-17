@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "local": "tsc *.ts --downlevelIteration && sls offline start",
     "deploy": "export $(cat .env | xargs) && sls deploy",
-    "watch": "tsc -w",
     "build": "tsc",
-    "lint": "tslint '*.ts'"
+    "lint": "tslint '*.ts'",
+    "dev": "nodemon --exec ts-node -- ./index.ts"
   },
   "keywords": [],
   "author": "",
@@ -27,11 +27,11 @@
     "url": "^0.11.0"
   },
   "devDependencies": {
-    "@types/aws-sdk": "^2.7.0",
-    "@types/cheerio": "^0.22.16",
+    "@types/cheerio": "0.22.16",
     "@types/node": "^13.7.4",
     "@types/phantom": "^3.2.5",
-    "serverless-offline": "^5.12.1",
+    "nodemon": "^2.0.6",
+    "ts-node": "^9.0.0",
     "tslint": "^6.0.0",
     "tslint-config-standard": "^9.0.0",
     "typescript": "^3.8.2"
