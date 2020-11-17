@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "local": "tsc *.ts --downlevelIteration && sls offline start",
     "deploy": "export $(cat .env | xargs) && sls deploy",
+    "tsc": "tsc --noEmit",
     "build": "tsc",
     "lint": "tslint '*.ts'",
     "dev": "nodemon --exec ts-node -- ./index.ts"
