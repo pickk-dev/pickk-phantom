@@ -20,17 +20,23 @@ export const _thesortiecom = () => {
   });
 
   document
-    .querySelectorAll('#prod_options > div.row > div > div > select')
+    .querySelectorAll('#prod_options > div.row')
     .forEach((selectEle, selectIndex) => {
-      selectEle.querySelectorAll('option').forEach((ele, index) => {
-        if (index === 0) {
-          return;
-        }
-        const optionValue = ele.textContent;
-        values[optionNames[selectIndex]].push(optionValue);
-        if (ele.outerHTML.includes('disabled')) {
-          isSoldout.push([index - 1]);
-        }
+      const optionName = optionNames[selectIndex];
+      selectEle
+        .querySelectorAll(
+          'div.dropdown-menu > div.dropdown-item > a._requireOption > span:nth-child(1)'
+        )
+        .forEach((ele, index) => {
+          const optionValue = ele.textContent;
+          values[optionName].push(optionValue);
+          if (ele.parentElement.className.includes('opacity')) {
+            isSoldout.push([index]);
+          }
+        });
+      selectEle.querySelectorAll('div.txt_l > label').forEach((ele, index) => {
+        const optionValue = ele.getAttribute('data-title');
+        values[optionName].push(optionValue);
       });
     });
 
