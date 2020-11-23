@@ -121,7 +121,7 @@ export const _ssfshopcom = () => {
             .getElementById(elementId)
             .getAttribute('onlineusefulinvqty') === '0'
         ) {
-          const others = [...Array(values[optionNames[1 - selectIndex]])];
+          const others = Array(values[optionNames[1 - selectIndex]]).slice();
 
           if (optionNames.length === 1) {
             isSoldout.push([index - 1]);
